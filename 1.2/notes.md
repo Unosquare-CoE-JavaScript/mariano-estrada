@@ -61,3 +61,71 @@ But how does the Js engine know the greeting parameter was duplicated?
 This is because the code is fully parsed before it gets compiled
 
 ### Hoisting
+lets consider:
+
+function saySomething(){
+    var greeting = 'hello'
+    {
+        greeting = 'Howdy'
+        Let greeting = 'Hi'
+        console.log(greeting)
+    }
+}
+
+saySomething() //Cannot access greeting before inicialization
+
+The reference error here in the line with the statement Howdy
+what happens here is that the greeting variable belongs to the next declaration rather than the previous statement
+
+- The reference error comes from greeting = 'Howdy' accessing the variable too early
+
+## Compiler speak
+Lets examine the next code
+
+var students = [
+    {id: 14, name: 'kyle'},
+    {id: 73, name: 'suzy'},
+    {id: 112, name: 'frank'},
+    {id: 6, name: 'sarah'},
+]
+
+function getStudentName(studentID){
+    for(let student of students){
+        if(student.id == studentID){
+            return student.name
+        }
+    }
+}
+
+let nextStudent = getStudentName(73)
+console.log(nextStudent) // Suzy
+
+- all occurrences of variables are either targets or source of a value
+
+### Targets
+What makes  a target?
+- this happens when a variable gets a value assignation
+
+### Sources
+What makes a source
+- this happens at the variable reference part
+
+## Lexical scope
+The term refers to the first stage of compilation
+The compilation creates a map of all the lexical scopes, while scopes are identified during compilation they are not created until runtime
+
+### Marbles, buckets and bubbles
+
+This metaphor consists on the buckets are scopes(functions and blocks), each marble inside is determined by its bucket
+Scope bubbles are created during compilation based on where the scopes are located, esentially it asks which color scope am I currently in?
+
+### A conversation among friends
+Here are some parts of the Js engine
+
+- Engine: responsible for start to finish compilation and execution of the Js program
+- Compiler: handles all of the parsing and code generation work
+- Scope Manager: collects a list of all of the devlared variables/identifiers
+
+for example looking at the code we wrote on the prior segments:
+First of all the compiler will break the code into tokens performing the lexing and then parse it into a tree
+Once the compiler gets to the code generation  
