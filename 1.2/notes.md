@@ -128,4 +128,36 @@ Here are some parts of the Js engine
 
 for example looking at the code we wrote on the prior segments:
 First of all the compiler will break the code into tokens performing the lexing and then parse it into a tree
-Once the compiler gets to the code generation  
+Once the compiler gets to the code generation this are the steps that it will follow:
+
+-  The compiler will look if there are all the variables needed on that particular scope, if so compiler would ignore this declaration and move on. Otherwise the compiler will produce code that asks the scope manager to create a new variable with the required name in that scope bucket
+
+- The compiler produces code for the Engine to later execute, then the code Engine will look for variables who are accessible in the current scope bucket once it finds it, it gets the corresponding reference.
+
+#### if we would look this as a conversation we can see that the Compiler takes this steps:
+First it asks the Scope Manager if an identifier declaration has been found
+- If not Scope manager creates the variable in that scope
+- If the answer is yes it is effectively skipped since there is nothing else for the Scope manager to do
+
+Compiler also signals when it runs across functions (or block scopes) so that a new scope bucket and scope manager can be instantiated
+
+### Nested scopes
+One of the keyspects of lexical scope is that any time an identifier cannot be found in the current scope the outer scope is consulted 
+This process is repeated until an answer is found or there are no more scopes left
+
+### Lookup Failures
+When there are no more scopes available (outer ones) then an error condition exists however depending if its on strict mode or not and if the variable is a target or a source the error is handled differently
+- If the variable is a source it is considered undeclared (not declared)
+Not declared is different from undefined
+- Not declared means that there is no matching formal declaration available
+- Undefined means there is a variable but it has no value at the moment
+However there are different kinds of undefined
+var studentName
+typeof studentName //undefined
+typeof doesntExist //undefined
+### Global what?
+- If the variable is a target and strict mode is not in effect the Scope Manager will create  an accidental global variable
+This behaviour creates bugs and shows why strict mode is important
+- In strict mode the Global Scope Manager would have thrown a Reference Error
+
+## The scope chain
