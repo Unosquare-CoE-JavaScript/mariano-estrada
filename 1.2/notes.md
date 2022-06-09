@@ -279,3 +279,43 @@ This tool enviroments prioritize developer convenience
 They are not suitable enviroments to determine behaviors on Js program context
 
 ### Es Modules
+One of the most obvious impacts of using ESMs is how it changes the behaviorof the top level scope in a file
+lets take a look at this snippet
+
+let studentName = 'Kyle'
+
+function hello(){
+    console.log(`Hello, ${self.studentName})
+
+}
+
+hello()
+
+export hello;
+
+Despite being declared on the top level studentName and hello are not global variables they are module wide or module global
+
+The modules top-level scope is descended from the top global scope thus all variables that exist on the top scope areavailable as lexical identifiers from inside the modules scope
+
+- ESM encourages a minimization of reliance on the global scope where you import whatever modules you may need as such you see less of the global scope as a global object
+
+### Node
+
+Node treats every single js file that it loads as a module
+The practical effect is that the top level of Node programs is never the global scope
+-Node has recently added support for ES modules
+Besides from that support Node has had support for modules from the past reffered as CommonjS
+CommonJs looks like this:
+
+let studentName = 'Kyle'
+
+function hello(){
+    console.log(`Hello, ${self.studentName})
+
+}
+
+hello()
+
+module.exports.hello = hello
+
+## The (not so) secret lifecycle of variables
