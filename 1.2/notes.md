@@ -161,3 +161,121 @@ This behaviour creates bugs and shows why strict mode is important
 - In strict mode the Global Scope Manager would have thrown a Reference Error
 
 ## The scope chain
+### Function name scope
+Just as a reminder a function declaration looks like this:
+function hola(){
+    ...
+}
+
+as discussed earlier the function declaration will create an identifier in the enclosing scope
+Lets review the next function
+
+let askQuestion = function(){
+    ...
+}
+
+that function will have a similar behaviour than the first one, however the function itself will not hoist
+
+One mayor difference between function declarations and function expressions is what happens to the name identifier
+for example lets consider the next function:
+
+var askQuestion = function ofTheTeacher(){
+    ...
+}
+
+askQuestion ends in the outer scope however the ofTheTeacher identifier is defined as read only
+
+### Arrow functions
+An arrow function is an aditional function expression syntax added in ES6
+
+let askQuestion = () =>{
+    ...
+}
+
+- arrow functions dont require the keyword function
+- they are lexically anonymous
+- the assigment to askQuestions creates an inferred name of askQuestion however this is not the same as being not anonymous
+askQuestion.name  // askQuestion
+- thet have the same lexical scope as normal functions
+
+## Around the global scope
+- is the scope that covers all of the program
+- it is located in the outermost portion of the program
+
+There are some interesting cases to take into account
+
+ ### Browser Window                                                                                                                                 
+This is considered the most 'pure' way to run a js file
+for example in the next code:
+
+var studentName = 'kyle'
+
+function Hello(){
+    console.log(`Hello ${window.studentName})
+}
+
+window.hello() // Hello kyle
+
+Here the outer scope is the global scope and studentName is created as a global variable
+
+### DOM globals
+In browser based JS applications we can ecnounter this surprising behavior
+- When a DOM element with an id attribute automaticaly creates a global variable that references it:
+<!-- 
+<ul id='my-todo-list'>
+    <li id='first'>
+        Write a book
+    </li>
+</ul>
+-->
+ and the Js could include:
+
+first
+ <!-- //  <li id='first'>
+
+ window['my-todo-list'] 
+// <ul id='my-todo-list'> -->
+
+if the value name is a lexical name (like first) a lexical variable is created, if not the only way to access it is through the global object
+
+### What is in a window name
+
+Here is another oddity in browser based Js
+
+var name = 42;
+console.log(name, typeof name);
+// 42, string
+
+- window.name is predefined 'global' in a browser context
+
+The surprising behavior of this code is that we defined 42 as a number but we received '42' as a string
+this is because window.name is a predefined getter/setter in the window object which inists on the value being a string.
+
+### Web Workers
+They are a platform extension on top of browser js behavior which allows JS to run in a completely separate thread
+- Since they are on a separate thread they are restricted in their comunications with the main application thread, for example they do not have access to the DOM
+- Since they are treated as a separate program they dont share the same global scope as the main Js program
+
+However we can expect similar scope behavior in the global scope
+
+In a Web Worker the global objecxt reference is made using self:
+
+var studentName = 'Kyle'
+let studentId = 42
+
+function hello(){
+    console.log(`Hello, ${self.studentName})
+
+}
+
+self.hello // Hello Kyle
+self. studentId // undefined
+
+var and function declarations create mirrored properties on the global object
+let declarations cant do that
+
+### Developer Tools Console
+This tool enviroments prioritize developer convenience
+They are not suitable enviroments to determine behaviors on Js program context
+
+### Es Modules
