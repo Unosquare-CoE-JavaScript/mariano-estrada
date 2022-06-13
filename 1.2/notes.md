@@ -319,3 +319,112 @@ hello()
 module.exports.hello = hello
 
 ## The (not so) secret lifecycle of variables
+### When can I use a variable
+One would think that you can use a variable right after it has been declared, but not quite so
+lets considet the next code:
+
+greeting()
+function greeting(){
+    console.log('hello')
+}
+
+This is because a term called function hoisting which happens  on function declarations
+- When a function declarations name is identifier is registered at the top of the scope it is auto initiated to that function reference.
+
+### Hoisting declaration vs expression
+Function hoisting only applies to formal function declaration
+for example:
+
+greeting() //Type error
+var greeting = function greeting(){
+    console.log('hello')
+}
+
+- Type error means we are trying to do something with a value that is not allowed
+- A function declaration is hoisted and initialized to its function value while a var variable is hoisted and initialized as undefined
+
+### Variable hoisting
+looking at the next code:
+
+greeting = 'Hello';
+console.log(greeting)
+//Hello
+var greeting = 'Howdy'
+
+Why is the variable accesible even though it was declared at the end?
+This is because of two reasons
+- The identifier is hoisted
+- The identifier is automatically initialized to the value of undefined at the top of the scope
+
+### Re declaration
+What happens when a variable is declared more than once in the same scope?
+Lets see the next code:
+
+var studentname = 'Frank'
+console.log(studentName)
+//Frank
+
+var studentName
+console.log(studentName)
+// ??
+
+- Variables can not be  re-declared in the same scope
+
+A repeated var declaration of the same identifier name is a do nothing operation
+
+If there were redeclarations but using the let keyword an error will occur
+
+var name = 'Mariano'
+let name = 'Mariano'
+
+//Syntax error
+
+
+- The syntax error will be thrown on the second declaration
+
+This happens because in ES6 the let keyword was introduced with the feature that prevents re declaration
+
+### Constants
+Const is more constrained than let
+- Like let const cannot be repeated with the same identifier in the same scope
+- Const requires a value to be initialized
+
+const //syntax error
+
+Const declarations create variables that cannot be re asigned
+const name = 'Mariano'
+console.log(name)
+//mariano
+
+name = 'Fernando'
+//typeError
+
+### Loops
+All of the rules of the scope are applied at a per scope basis 
+- Each time a scope is entered during execution, everything resets
+- Each loop iteration is its own scope instance
+- Within each scope instance the value is only declared once, in other words each time you enter the iteration everything resets
+
+### TDZ
+
+TDZ stads for temporal dead zone
+With var declarations, the variable is hoisted to the top of the scope
+The variable it is also initialized with an undefined value so that the variable can be used throughout the entire scope
+
+let and const are different
+The ways to initialize a variable using let are the following
+
+let name = 'Mariano'
+console.log(name) //Mariano
+
+or
+
+let name
+
+name = 'mariano'
+
+console.log(name) //mariano
+
+## Limiting Scope Exposure
+Here we will look at the different levels of scope and when should we use them
+
