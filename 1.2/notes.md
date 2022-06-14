@@ -428,3 +428,91 @@ console.log(name) //mariano
 ## Limiting Scope Exposure
 Here we will look at the different levels of scope and when should we use them
 
+- The principle of least privilege (POLP) here each piece is connected with the minimum necesary capabilities
+- Least exposure(POLE) variant focuses on a lower level
+When variables used by one part of the program are exposed to another part of the program via the scope, when this happens there are three main hazards that arise
+- Naming collisions
+- Unexpected Dependency
+- Unintended Dependency
+
+POLE says keep everything as private as possible while keeping everything the least expossed possible
+
+### Invoking Function Expressions Inmediately
+
+An IIFE is very useful when we want to create a scope to hide variables/functions, since it is an expression it can be used in any part of the JS program where an expression is allowed
+- An IIFE can be named using the hideTheCache() or being unnamed/anonymous
+- It can also be standalone or part of another statement
+
+here is an standalone IIFE
+
+(function(){
+//inner function scope
+})()
+
+in a standalone IIFE the outer (...) are required
+
+### Function Boundaries
+Using an IIFE to define the scope can lead to unexpected consequences
+Since an IIFE is a full function the function boudaries can alter the behavior of certain statements/constructs
+For example a return statement in some piece of code would change the meaning of the IIFE wrapper around it
+
+### Scoping with blocks
+Not all curly braces create block scopes 
+- Object literals use curly braces to delimit their key value lists
+- class uses curly bracesaround its body definition
+- A function uses curly braces around its body, this is not technically a block. However it is a function scope
+- Curly braces on a switch statements does not definea block/scope
+
+### Var and let
+Var has always from the start of Js been signaled as a variable that belongs to a whole function
+Var attaches to the nearest enclosing function scope
+
+Where to use let
+We should declare var on a top level function scope that means most of the other declarations should be used with let
+
+- If a declaration belongs in a block scope use let, if it belongs to a function scope use var
+
+### Function declarations in blocks
+Since let and const ar block scoped and var is function scoped
+FiBs are function declarations that appear directly inside blocks
+
+Depending on which JS enviroment you might get different results using an FiB
+The JS especification says the FiBs are block scoped
+However browser engines tend to behave different to the especification. This is because the engines had certain different behaviors around FiBs before ES6 introduced block scoping
+
+## Using Closures
+Closure is one of the most important languaje characteristics ever invented in programming it underlines some of the mayor paradigms including Functional Programming
+Closure builds on the POLE approach
+- For variables we need to use over time im larger outer scopes we can encapsule them but still access them from inside functions
+Closures is a behavior of functions. If it isnt a function the closure is not going to work
+
+lets examine the next code 
+
+function adder(num1){
+    return function addTo(num2){
+        return num1 + num2
+    }
+}
+
+var add10To = adder(10)
+var add42To = adder(42)
+
+add10To(15) //25
+add42To(9) //51
+
+- Each function in the inner function addTo is closing over its own num1 variable
+- When we invoke one of the inner instances such as add10To call its closed over num1 and still holds the original 10 value, then it runs de num1 + num2 operation
+
+A closure is actually a live link preserving access to the variable itself, by closing over the variable we can update the variable as well as read it
+
+Definition:
+
+- Closure is observed when a function uses a variable(s) from outer scope(s) even while running on a scope whose variables wouldnt be accesible
+
+### Garbage collecting
+
+If ten functions all close over the same variable and over time nine of this functions are discarded, the lone function reference still preserves the variable. Once the final reference is discarded the last closure is gone and the variable has been GCd
+
+This has a big 
+
+ 
