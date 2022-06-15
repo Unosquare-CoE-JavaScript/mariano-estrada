@@ -513,6 +513,185 @@ Definition:
 
 If ten functions all close over the same variable and over time nine of this functions are discarded, the lone function reference still preserves the variable. Once the final reference is discarded the last closure is gone and the variable has been GCd
 
-This has a big 
+This has a big impact on building efficient and good performing programs. When considering the overall health and efficiency of a program, unsibscribing an event handler can be more important than the initial subscription
 
- 
+### Closer to closure
+There are two models for taking a closure
+- Observational: closure is a function instance remembering its outer variables even as the function is passed or invoked in other scopes
+- Implementational: closure is a function instance and its scope enviroment preserved in place while any references to it are passed and invoked from other scopes
+
+The benefits for using a closure are the next
+
+- closure can improve efficiency by allowing a function instance to remember previously determined information instead of having to compute it everytime
+- closure can improve code readbility, bounding scope exposure by encapsulating variablesinside function instances while still making the information in those variabes accesible for future use
+
+## The module pattern
+ - The module is one of the most important code organization patterns of all programming
+
+### Encapsulation and POLE
+Encapsulation is a principle of Object oriented programming
+The main goal of encapsulation is bundling the data and behavior that together serve a purpose
+the spirit of encapsulation could be realized in something as simple as using separate files to hold bits of the overall program with a common purpose
+The natural effect of using encapsulation is better code organization, it makes code easier to build and mantain
+
+### What is a module
+A module is a collection of related data and functions characterized by a division between private details and public accesible details usually known as the public API
+
+A module is also stateful: It mantains some information over time along with functionality access and the ability to update that information
+
+#### Namespaces (Stateless Grouping)
+If you group a related set of functions together, without data, then you dont really have the expected encapsulation a module implies
+Lets see the next example
+
+var Utils = {
+    cancelEvt(evt){
+        evt.preventDefault()
+        evt.stopPropagation()
+        evt.stopImmediatePropagation()
+    },
+    wait(ms){
+        return new Promise (function c(res){
+            setTimeout(res,ms)
+        })
+    }
+    isValidEmail(email){
+        return /[^@]+@[^@.]+\.[^@.]+/.test(email)
+    }
+    }
+}
+
+Utilshere is a useful collection of utilities, yet they are state independent functions. Gathering functionality to-gether is generally good practice, but that doesn’t make thisa module. Rather, we have defined a Utilsnamespace and organized the functions under it
+
+### Data structures (Stateful Grouping)
+Even if you bundle data and stateful functions together, if you’re not limiting the visibility of any of it, then you’restopping short of the POLE aspect of encapsulation; it’s not particularly helpful to label that a module
+
+lets take into example
+
+varStudent={
+    records:[
+        { id:14, name:"Kyle", grade:86},
+        { id:73, name:"Suzy", grade:87},
+        { id:112, name:"Frank", grade:75},
+        { id:6, name:"Sarah", grade:91}
+        ],
+        getName(studentID)
+        {varstudent = this.records.find (student => student.id==studentID);
+        returnstudent.name;}};
+        
+        Student.getName(73);
+    }
+}
+
+Since records is publicly accesible data not hidden behind a public API, student isnt really a module
+
+### Modules(Stateful Access Control)
+In order to get the full spirit of the module patter we not only need grouping and state but access through visibility(private vs public)
+lets turn the last example into a module
+
+varStudent = (function defineStudent(){
+    var records = [
+        { id:14, name:"Kyle", grade:86},
+        { id:73, name:"Suzy", grade:87},
+        { id:112, name:"Frank", grade:75},
+        { id:6, name:"Sarah", grade:91}
+        ];
+        
+        var publicAPI = {getName};
+        return publicAPI;
+
+        function getName(studentID){
+            var student = records.find(student => student.id==studentID);
+            return student.name;
+            }})();
+
+    Student.getName(73)
+
+- Student is now an instance of a module since it  features a public API with a single method
+
+### Module Factory (Multiple instances)
+we can tweak a little bit the last example:
+
+
+varStudent = (function defineStudent(){
+    var records = [
+        { id:14, name:"Kyle", grade:86},
+        { id:73, name:"Suzy", grade:87},
+        { id:112, name:"Frank", grade:75},
+        { id:6, name:"Sarah", grade:91}
+        ];
+        
+        var publicAPI = {getName};
+        return publicAPI;
+
+        function getName(studentID){
+            var student = records.find(student => student.id==studentID);
+            return student.name;
+            }})();
+
+        var fullTime = defineStudent()
+        fulltime.getName(73)
+
+    Rather than defining defineStudent as an IIFE we just define it as a standalone function which is defined as a Module factory
+
+### Classic Module Definition
+
+- There must be an outer scope, typically from a module factory function running at least one
+- The modules inner scope must have at least one piece of hidden information that represents the state for the module
+- The module must returnto its public API a reference to at least one function that has a closure over the hidden module state
+
+### Node CommonJs Modules
+Common JS modules are file based, this means there is only one file per module
+lets tweak the last example
+
+module.exports.getName = getName
+
+    var records = [
+        { id:14, name:"Kyle", grade:86},
+        { id:73, name:"Suzy", grade:87},
+        { id:112, name:"Frank", grade:75},
+        { id:6, name:"Sarah", grade:91}
+        ];
+
+        function getName(studentID){
+            var student = records.find(student => student.id==studentID);
+            return student.name;
+            };
+
+    CommonJs modules behave as singleton instances no matter how many times you require the same module you just get aditional references to a single shared module instead
+
+    Similar to the classic module format the publicly exported CommonJs methodsof a module API closures over the internal module details
+
+### Modern ES modules
+- ESM shares some similarities with CommonJS
+- ESM are single file based
+- Everything is private by default
+- ESM does not require the use strict keyword at the top
+- Instead of module.exports ESM uses the export keyword
+
+Lets adjust the last example to fit the ES syntax
+
+export getName
+
+    var records = [
+        { id:14, name:"Kyle", grade:86},
+        { id:73, name:"Suzy", grade:87},
+        { id:112, name:"Frank", grade:75},
+        { id:6, name:"Sarah", grade:91}
+        ];
+        
+
+        function getName(studentID){
+            var student = records.find(student => student.id==studentID);
+            return student.name;
+        }
+
+- Exports can appear anywhere throughout the file
+- There can also be default exports
+- Non default exports are called named exports
+
+## Exploring Further
+
+### Implied Scopes
+
+
+
