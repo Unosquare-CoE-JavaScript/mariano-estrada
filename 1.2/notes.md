@@ -691,7 +691,167 @@ export getName
 
 ## Exploring Further
 
-### Implied Scopes
+### Anonymous vs named functions
+Functions can be either named or anonymous, the anonymous form is far more popular though
+As we contemplate naming our functions we must consider:
+- Name inference is incomplete
+- Lexical names allow self reference
+- Names are useful descriptions
+- Arrow functions have no lexical name
+- IIFES also need names
 
+### Explicit or inferred names
+Every function in your program has a purpose, if it doesnt then it makes no sense to have it on the program. If it has a purpose then it should have a name describing that purpose.
+- Appropiate naming gives you a better context for what the function does and makes the program more debuggeable
 
+### Missing Names
+Inferred names  might show up in stack traces however anonymous function expressions passed as callbacks are incabable of receiving an inferred name.
+The vast mayority of all function expressions especially anonymous ones are used as callback arguments; none of this gets a name. So relying on name inference is incomplete, at best
+Even if a function expression gets an inferred name it still doesnt count as a named expression
+
+### Who am I
+Without a lexical identifier the function has no internal way to refer to itself. Self reference is important for topics like recursion and event handling
+- Leaving off the lexical names from a callback makes it harder to reliably self-reference the function
+
+### Names are descriptions
+Leaving off a name from a function makes it harder for the reader to tell what the purpose of the function is, including the code inside of the function and the surrounding code outside of the function.
+
+- The Js engine does not care about name omisions however the reader does
+- No matter the length or the complexity of the function, the author of the function should figure out a good and descriptive name
+
+The only excuses for not adding names could be
+- Lazyness 
+- Lack of creativity
+
+### Arrow Functions
+Arrow functions are always anonymous, even if they are used in a way that gives them an inferred name
+Arrow functions have a purpose, but that purpose is not to save some keystrokes, they have a lexical this behavior.
+They dont define a this identifier keyword
+
+### IIFE variations
+IIFEs are defined by placing (...) around the function expression, the reason we use those (...) is so the function keyword inside doesnt qualify as a function declaration for the Js parser
+The final () on the IIFE is to create a valid call for the function
+
+### Hoisting: Functions and Variables
+Hoisting is often known as a JS design mistake however it can bring some benefits and should still be considered
+There are some merits like: 
+- Executable code first, function declarations last
+
+#### Function Hoisting
+The next code works because of function hoisting
+
+getStudents()
+
+function getStudents(){
+    ....
+}
+
+The function declaration is hoisted during compilation
+- This means getStudents is declared for the whole scope
+
+This is helpful because it makes easier to find code that will run in any given area
+
+#### Variable Hoisting
+Variable hoisting is a bad idea in most of the cases
+
+pleaseDontDoThis = 'bad idea'
+
+var pleaseDontDoThis
+
+### The case for var
+- Var is fine and works just fine
+- Var is not the right declarator for every case
+
+### Const antly confused
+- Const should be used when you are going to assign it an already immutable value, the main purpose of const is to prevent re assigments
+- Using const with a mutable value (like an array or object) is possible because  value immutability and assigment immutability is not the same
+
+for example:
+
+const studentIds = [1,2,3,4,5]
+
+studentIds.push(6)
+
+// 1,2,3,4,5,6
+
+### Var and let
+- Both should be used in different contexts, but you shouldnt use var where yo should use let and vice-versa
+- Var is recomended for use at a top level scope in order to minimize the use of the global scope
+- Var is great for function scoping
+- Let should be used inside block scopes
+
+### TDZ
+Here are some breadcrumbs about the origin of the TDZ
+- const should never change
+- its all about time
+-  should let behave more like const and var?
+
+### Where it all started?
+TDZ comes from const actually
+During the early days of ES6 development they had to decide wether let and const would hoist to the top of their scopes, if that would not happen there would be a lot of variable shadowing
+- While let and const hoist they do not auto initialize to undefined like var does, when the variable exists throughout the whole scope but its not initialized but that period of time that exists between the variable gets initialized and when it gets its value assigned is called Temporal Dead Zone (TDZ)
+
+### Are Synchronous callbacks still closures
+Closures are:
+- a function instance remembering its outer variables even as the function is passed around and invoked in other scopes
+- a function instance and its scope enviroment is being preserved in place while any references are passed and invoked from other scopes
+
+#### What is a callback
+
+A callback means that the current  code has finished or paused, suspended itself and when the function is invoked later, execution is returning, resuming it
+In this context the JS engine is resuming our suspended program so it makes sense to 'call back' at a specific location
+- a call back is asynchronous
+
+### Synchronous callbakcs
+lets consider:
+
+function getLabels(studentIDs) {
+    return studentIDs.map(
+        function formatIDLabel(id){
+            return`Student ID:${
+                String(id).padStart(6)}`;
+            }
+        );
+    }
+    
+    getLabels([14,73,112,6]);
+    // 
+    [
+        //    "Student ID: 000014",
+        //    "Student ID: 000073",
+        //    "Student ID: 000112",
+        //    "Student ID: 000006"
+        
+    //
+     ]
+
+- There is nothing to call back because the program hasnt paused or exited
+- Here a function is passed from one part of the program to another part of the program
+- It is immediately invoked
+
+Synchronous callbacks can be refered as Inter Invoked Functions (IIFs) 
+- This functions are invoked by another entity
+
+### Synchronous Closure
+Are IIFs closures?
+- IIFs have reference to variables from the outer scopes
+- IFFs are not closures 
+
+### Classic module variations
+Lets look at the next example:
+
+var StudentList = ( function defineModule(Student){
+    var elems = [];
+    var publicAPI = { renderList() {
+        // ..
+    }
+};
+
+return publicAPI;
+})(Student);
+
+There are some hints to recognize module variations
+- Does the module know about its own API?
+- Even if we use a fancy module loader its just a classic module
+- Some modules need to work universally
 
