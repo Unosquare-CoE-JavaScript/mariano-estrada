@@ -855,3 +855,69 @@ There are some hints to recognize module variations
 - Even if we use a fancy module loader its just a classic module
 - Some modules need to work universally
 
+### Where is my API?
+Most classic modules dont define a public API method
+they look like this:
+
+var StudentList = ( functio ndefineModule (Student) {
+    var elems = []; 
+    return {
+        renderList() 
+        {// ..}
+        };
+    }
+)(Student);
+
+The only difference is returning the object that serves as the public API for the module, opposed to first saving it to the publicAPI variable
+
+- This is by far how classic modules are constructed
+
+### Asynchronous Module Definitions (AMD)
+
+AMDs look like this:
+
+define(["./Student"],function StudentList (Student) {
+    var elems = []; 
+    return{
+        renderList() 
+        {// ..}};
+        }
+    );
+
+- define is provided by RequireJs
+- the studentList function executed passing to any other modules declared as dependencies
+- the return value is an object representing the public API for the modules
+
+### Universal Modules
+- An UMD is less a specific exact format, and more a collection of very similar formats
+- It was designed to create a better interpop for modules that can be used on browsers
+
+Here is the structure of an UMD
+
+(function UMD (name,context,definition) {
+    // loaded by an AMD-style loader?
+
+    if (typeof define === "function" && define.amd ) {
+        define (definition);
+        } // in Node?
+
+        else if (typeof module! == "undefined" && module.exports) {
+            module.exports = definition (name,context);
+            
+        } // assume standalone browser script
+    else {
+        context[name] = definition(name,context);
+    }})("StudentList",this,functionDEF(name,context){
+        var elems=[];
+        return{
+            renderList() {
+                // ..
+                }};
+        });
+
+- UMD is just an IIFE 
+- The main difference in the function expression part is that it contains an if..else if statement to  detect whithc of the supported enviroments is being loaded
+- The final () invokes the function
+
+ESMs are becoming popular and widespread quickly
+
