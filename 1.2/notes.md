@@ -33,17 +33,19 @@ JS does not require compilation explicitly. There are three main behaviours to o
 ### Syntax errors from the start
 Lets consider the next code
 
+~~~
 var greeting = 'Hello'
 console.log(greeting)
 greeting = .'hi'
 //Syntax error
+~~~
 
 The program throws a syntax error because opf the unexpected token before the hi string
 Js knows about the syntax error because it parses the entire program before it is executed 
 
 ### Early Errors
 Lets consider: 
-
+~~~
 console.log('Howdy')
 saySomething('Hello','Hi')
 //Uncaught syntax error Duplicate Parameter not allowed
@@ -52,7 +54,7 @@ function saySomething(greeting, greeting){
     'use strict'
     console.log(greeting)
 }
-
+~~~
 Howdy would not be printed despite being well formed
 The error is thrown before the code is executed, this is because of the strict mode
 Strict mode forbids to have duplicate parameter names
@@ -62,7 +64,7 @@ This is because the code is fully parsed before it gets compiled
 
 ### Hoisting
 lets consider:
-
+~~~
 function saySomething(){
     var greeting = 'hello'
     {
@@ -73,7 +75,7 @@ function saySomething(){
 }
 
 saySomething() //Cannot access greeting before inicialization
-
+~~~
 The reference error here in the line with the statement Howdy
 what happens here is that the greeting variable belongs to the next declaration rather than the previous statement
 
@@ -81,7 +83,7 @@ what happens here is that the greeting variable belongs to the next declaration 
 
 ## Compiler speak
 Lets examine the next code
-
+~~~
 var students = [
     {id: 14, name: 'kyle'},
     {id: 73, name: 'suzy'},
@@ -99,7 +101,7 @@ function getStudentName(studentID){
 
 let nextStudent = getStudentName(73)
 console.log(nextStudent) // Suzy
-
+~~~
 - all occurrences of variables are either targets or source of a value
 
 ### Targets
@@ -152,9 +154,11 @@ Not declared is different from undefined
 - Not declared means that there is no matching formal declaration available
 - Undefined means there is a variable but it has no value at the moment
 However there are different kinds of undefined
+~~~
 var studentName
 typeof studentName //undefined
 typeof doesntExist //undefined
+~~~
 ### Global what?
 - If the variable is a target and strict mode is not in effect the Scope Manager will create  an accidental global variable
 This behaviour creates bugs and shows why strict mode is important
@@ -163,6 +167,7 @@ This behaviour creates bugs and shows why strict mode is important
 ## The scope chain
 ### Function name scope
 Just as a reminder a function declaration looks like this:
+~~~
 function hola(){
     ...
 }
@@ -173,25 +178,25 @@ Lets review the next function
 let askQuestion = function(){
     ...
 }
-
+~~~
 that function will have a similar behaviour than the first one, however the function itself will not hoist
 
 One mayor difference between function declarations and function expressions is what happens to the name identifier
 for example lets consider the next function:
-
+~~~
 var askQuestion = function ofTheTeacher(){
     ...
 }
-
+~~~
 askQuestion ends in the outer scope however the ofTheTeacher identifier is defined as read only
 
 ### Arrow functions
 An arrow function is an aditional function expression syntax added in ES6
-
+~~~
 let askQuestion = () =>{
     ...
 }
-
+~~~
 - arrow functions dont require the keyword function
 - they are lexically anonymous
 - the assigment to askQuestions creates an inferred name of askQuestion however this is not the same as being not anonymous
@@ -207,7 +212,7 @@ There are some interesting cases to take into account
  ### Browser Window                                                                                                                                 
 This is considered the most 'pure' way to run a js file
 for example in the next code:
-
+~~~
 var studentName = 'kyle'
 
 function Hello(){
@@ -215,37 +220,39 @@ function Hello(){
 }
 
 window.hello() // Hello kyle
-
+~~~
 Here the outer scope is the global scope and studentName is created as a global variable
 
 ### DOM globals
 In browser based JS applications we can ecnounter this surprising behavior
 - When a DOM element with an id attribute automaticaly creates a global variable that references it:
-<!-- 
+~~~
 <ul id='my-todo-list'>
     <li id='first'>
         Write a book
     </li>
 </ul>
--->
+~~~
  and the Js could include:
 
 first
- <!-- //  <li id='first'>
+~~~
+ <li id='first'>
 
  window['my-todo-list'] 
-// <ul id='my-todo-list'> -->
+ <ul id='my-todo-list'>
+ ~~~
 
 if the value name is a lexical name (like first) a lexical variable is created, if not the only way to access it is through the global object
 
 ### What is in a window name
 
 Here is another oddity in browser based Js
-
+~~~
 var name = 42;
 console.log(name, typeof name);
 // 42, string
-
+~~~
 - window.name is predefined 'global' in a browser context
 
 The surprising behavior of this code is that we defined 42 as a number but we received '42' as a string
@@ -258,8 +265,8 @@ They are a platform extension on top of browser js behavior which allows JS to r
 
 However we can expect similar scope behavior in the global scope
 
-In a Web Worker the global objecxt reference is made using self:
-
+In a Web Worker the global object reference is made using self:
+~~~
 var studentName = 'Kyle'
 let studentId = 42
 
@@ -270,7 +277,7 @@ function hello(){
 
 self.hello // Hello Kyle
 self. studentId // undefined
-
+~~~
 var and function declarations create mirrored properties on the global object
 let declarations cant do that
 
@@ -281,7 +288,7 @@ They are not suitable enviroments to determine behaviors on Js program context
 ### Es Modules
 One of the most obvious impacts of using ESMs is how it changes the behaviorof the top level scope in a file
 lets take a look at this snippet
-
+~~~
 let studentName = 'Kyle'
 
 function hello(){
@@ -292,7 +299,7 @@ function hello(){
 hello()
 
 export hello;
-
+~~~
 Despite being declared on the top level studentName and hello are not global variables they are module wide or module global
 
 The modules top-level scope is descended from the top global scope thus all variables that exist on the top scope areavailable as lexical identifiers from inside the modules scope
@@ -306,7 +313,7 @@ The practical effect is that the top level of Node programs is never the global 
 -Node has recently added support for ES modules
 Besides from that support Node has had support for modules from the past reffered as CommonjS
 CommonJs looks like this:
-
+~~~
 let studentName = 'Kyle'
 
 function hello(){
@@ -317,40 +324,40 @@ function hello(){
 hello()
 
 module.exports.hello = hello
-
+~~~
 ## The (not so) secret lifecycle of variables
 ### When can I use a variable
 One would think that you can use a variable right after it has been declared, but not quite so
 lets considet the next code:
-
+~~~
 greeting()
 function greeting(){
     console.log('hello')
 }
-
+~~~
 This is because a term called function hoisting which happens  on function declarations
 - When a function declarations name is identifier is registered at the top of the scope it is auto initiated to that function reference.
 
 ### Hoisting declaration vs expression
 Function hoisting only applies to formal function declaration
 for example:
-
+~~~
 greeting() //Type error
 var greeting = function greeting(){
     console.log('hello')
 }
-
+~~~
 - Type error means we are trying to do something with a value that is not allowed
 - A function declaration is hoisted and initialized to its function value while a var variable is hoisted and initialized as undefined
 
 ### Variable hoisting
 looking at the next code:
-
+~~~
 greeting = 'Hello';
 console.log(greeting)
 //Hello
 var greeting = 'Howdy'
-
+~~~
 Why is the variable accesible even though it was declared at the end?
 This is because of two reasons
 - The identifier is hoisted
@@ -359,7 +366,7 @@ This is because of two reasons
 ### Re declaration
 What happens when a variable is declared more than once in the same scope?
 Lets see the next code:
-
+~~~
 var studentname = 'Frank'
 console.log(studentName)
 //Frank
@@ -367,18 +374,18 @@ console.log(studentName)
 var studentName
 console.log(studentName)
 // ??
-
+~~~
 - Variables can not be  re-declared in the same scope
 
 A repeated var declaration of the same identifier name is a do nothing operation
 
 If there were redeclarations but using the let keyword an error will occur
-
+~~~
 var name = 'Mariano'
 let name = 'Mariano'
 
 //Syntax error
-
+~~~
 
 - The syntax error will be thrown on the second declaration
 
@@ -388,7 +395,7 @@ This happens because in ES6 the let keyword was introduced with the feature that
 Const is more constrained than let
 - Like let const cannot be repeated with the same identifier in the same scope
 - Const requires a value to be initialized
-
+~~~
 const //syntax error
 
 Const declarations create variables that cannot be re asigned
@@ -398,7 +405,7 @@ console.log(name)
 
 name = 'Fernando'
 //typeError
-
+~~~
 ### Loops
 All of the rules of the scope are applied at a per scope basis 
 - Each time a scope is entered during execution, everything resets
@@ -413,7 +420,7 @@ The variable it is also initialized with an undefined value so that the variable
 
 let and const are different
 The ways to initialize a variable using let are the following
-
+~~~
 let name = 'Mariano'
 console.log(name) //Mariano
 
@@ -424,7 +431,7 @@ let name
 name = 'mariano'
 
 console.log(name) //mariano
-
+~~~
 ## Limiting Scope Exposure
 Here we will look at the different levels of scope and when should we use them
 
@@ -444,11 +451,11 @@ An IIFE is very useful when we want to create a scope to hide variables/function
 - It can also be standalone or part of another statement
 
 here is an standalone IIFE
-
+~~~
 (function(){
 //inner function scope
 })()
-
+~~~
 in a standalone IIFE the outer (...) are required
 
 ### Function Boundaries
@@ -487,7 +494,7 @@ Closure builds on the POLE approach
 Closures is a behavior of functions. If it isnt a function the closure is not going to work
 
 lets examine the next code 
-
+~~~
 function adder(num1){
     return function addTo(num2){
         return num1 + num2
@@ -499,7 +506,7 @@ var add42To = adder(42)
 
 add10To(15) //25
 add42To(9) //51
-
+~~~
 - Each function in the inner function addTo is closing over its own num1 variable
 - When we invoke one of the inner instances such as add10To call its closed over num1 and still holds the original 10 value, then it runs de num1 + num2 operation
 
@@ -542,7 +549,7 @@ A module is also stateful: It mantains some information over time along with fun
 #### Namespaces (Stateless Grouping)
 If you group a related set of functions together, without data, then you dont really have the expected encapsulation a module implies
 Lets see the next example
-
+~~~
 var Utils = {
     cancelEvt(evt){
         evt.preventDefault()
@@ -559,14 +566,14 @@ var Utils = {
     }
     }
 }
-
+~~~
 Utilshere is a useful collection of utilities, yet they are state independent functions. Gathering functionality to-gether is generally good practice, but that doesn’t make thisa module. Rather, we have defined a Utilsnamespace and organized the functions under it
 
 ### Data structures (Stateful Grouping)
 Even if you bundle data and stateful functions together, if you’re not limiting the visibility of any of it, then you’restopping short of the POLE aspect of encapsulation; it’s not particularly helpful to label that a module
 
 lets take into example
-
+~~~
 varStudent={
     records:[
         { id:14, name:"Kyle", grade:86},
@@ -581,13 +588,13 @@ varStudent={
         Student.getName(73);
     }
 }
-
+~~~
 Since records is publicly accesible data not hidden behind a public API, student isnt really a module
 
 ### Modules(Stateful Access Control)
 In order to get the full spirit of the module patter we not only need grouping and state but access through visibility(private vs public)
 lets turn the last example into a module
-
+~~~
 varStudent = (function defineStudent(){
     var records = [
         { id:14, name:"Kyle", grade:86},
@@ -605,13 +612,13 @@ varStudent = (function defineStudent(){
             }})();
 
     Student.getName(73)
-
+~~~
 - Student is now an instance of a module since it  features a public API with a single method
 
 ### Module Factory (Multiple instances)
 we can tweak a little bit the last example:
 
-
+~~~
 varStudent = (function defineStudent(){
     var records = [
         { id:14, name:"Kyle", grade:86},
@@ -630,7 +637,7 @@ varStudent = (function defineStudent(){
 
         var fullTime = defineStudent()
         fulltime.getName(73)
-
+~~~
     Rather than defining defineStudent as an IIFE we just define it as a standalone function which is defined as a Module factory
 
 ### Classic Module Definition
@@ -642,7 +649,7 @@ varStudent = (function defineStudent(){
 ### Node CommonJs Modules
 Common JS modules are file based, this means there is only one file per module
 lets tweak the last example
-
+~~~
 module.exports.getName = getName
 
     var records = [
@@ -656,7 +663,7 @@ module.exports.getName = getName
             var student = records.find(student => student.id==studentID);
             return student.name;
             };
-
+~~~
     CommonJs modules behave as singleton instances no matter how many times you require the same module you just get aditional references to a single shared module instead
 
     Similar to the classic module format the publicly exported CommonJs methodsof a module API closures over the internal module details
@@ -669,7 +676,7 @@ module.exports.getName = getName
 - Instead of module.exports ESM uses the export keyword
 
 Lets adjust the last example to fit the ES syntax
-
+~~~
 export getName
 
     var records = [
@@ -684,7 +691,7 @@ export getName
             var student = records.find(student => student.id==studentID);
             return student.name;
         }
-
+~~~
 - Exports can appear anywhere throughout the file
 - There can also be default exports
 - Non default exports are called named exports
@@ -739,13 +746,13 @@ There are some merits like:
 
 #### Function Hoisting
 The next code works because of function hoisting
-
+~~~
 getStudents()
 
 function getStudents(){
     ....
 }
-
+~~~
 The function declaration is hoisted during compilation
 - This means getStudents is declared for the whole scope
 
@@ -753,11 +760,11 @@ This is helpful because it makes easier to find code that will run in any given 
 
 #### Variable Hoisting
 Variable hoisting is a bad idea in most of the cases
-
+~~~
 pleaseDontDoThis = 'bad idea'
 
 var pleaseDontDoThis
-
+~~~
 ### The case for var
 - Var is fine and works just fine
 - Var is not the right declarator for every case
@@ -767,13 +774,13 @@ var pleaseDontDoThis
 - Using const with a mutable value (like an array or object) is possible because  value immutability and assigment immutability is not the same
 
 for example:
-
+~~~
 const studentIds = [1,2,3,4,5]
 
 studentIds.push(6)
 
 // 1,2,3,4,5,6
-
+~~~
 ### Var and let
 - Both should be used in different contexts, but you shouldnt use var where yo should use let and vice-versa
 - Var is recomended for use at a top level scope in order to minimize the use of the global scope
@@ -804,7 +811,7 @@ In this context the JS engine is resuming our suspended program so it makes sens
 
 ### Synchronous callbakcs
 lets consider:
-
+~~~
 function getLabels(studentIDs) {
     return studentIDs.map(
         function formatIDLabel(id){
@@ -824,7 +831,7 @@ function getLabels(studentIDs) {
         
     //
      ]
-
+~~~
 - There is nothing to call back because the program hasnt paused or exited
 - Here a function is passed from one part of the program to another part of the program
 - It is immediately invoked
@@ -839,7 +846,7 @@ Are IIFs closures?
 
 ### Classic module variations
 Lets look at the next example:
-
+~~~
 var StudentList = ( function defineModule(Student){
     var elems = [];
     var publicAPI = { renderList() {
@@ -849,7 +856,7 @@ var StudentList = ( function defineModule(Student){
 
 return publicAPI;
 })(Student);
-
+~~~
 There are some hints to recognize module variations
 - Does the module know about its own API?
 - Even if we use a fancy module loader its just a classic module
@@ -858,7 +865,7 @@ There are some hints to recognize module variations
 ### Where is my API?
 Most classic modules dont define a public API method
 they look like this:
-
+~~~
 var StudentList = ( functio ndefineModule (Student) {
     var elems = []; 
     return {
@@ -867,7 +874,7 @@ var StudentList = ( functio ndefineModule (Student) {
         };
     }
 )(Student);
-
+~~~
 The only difference is returning the object that serves as the public API for the module, opposed to first saving it to the publicAPI variable
 
 - This is by far how classic modules are constructed
@@ -875,7 +882,7 @@ The only difference is returning the object that serves as the public API for th
 ### Asynchronous Module Definitions (AMD)
 
 AMDs look like this:
-
+~~~
 define(["./Student"],function StudentList (Student) {
     var elems = []; 
     return{
@@ -883,7 +890,7 @@ define(["./Student"],function StudentList (Student) {
         {// ..}};
         }
     );
-
+~~~
 - define is provided by RequireJs
 - the studentList function executed passing to any other modules declared as dependencies
 - the return value is an object representing the public API for the modules
@@ -893,7 +900,7 @@ define(["./Student"],function StudentList (Student) {
 - It was designed to create a better interpop for modules that can be used on browsers
 
 Here is the structure of an UMD
-
+~~~
 (function UMD (name,context,definition) {
     // loaded by an AMD-style loader?
 
@@ -914,7 +921,7 @@ Here is the structure of an UMD
                 // ..
                 }};
         });
-
+~~~
 - UMD is just an IIFE 
 - The main difference in the function expression part is that it contains an if..else if statement to  detect whithc of the supported enviroments is being loaded
 - The final () invokes the function
