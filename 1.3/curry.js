@@ -31,16 +31,8 @@
 // const _ = R;
 // const split = _.curry((delimiter, string) => string.split(delimiter))
 
-//Exercise 1
- const words = function(str) {
-     return split(' ', str);
-   }
-  
-   QUnit.test("Ex1: split", assert => {
-     assert.deepEqual(words("Jingle bells Batman smells"), ['Jingle', 'bells', 'Batman', 'smells'])
-   })
 
-//Solution
+//Excercise 1
 const words1 = split(' ')
   
   QUnit.test("Ex1: split", assert => {

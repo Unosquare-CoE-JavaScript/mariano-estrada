@@ -89,4 +89,87 @@ add(multiply(x, y), multiply(x, z)) == multiply(x, add(y,z))
 
 - We should use currying when we want to remember an argument
 
+## Composition
+ Is an approach where the result of one function is passed on to the next function, which is passed to another until the final function is executed for the final result.
+
+ for example :
+
+ const compose = (f,g) => x => f(g(x))
+
+ example 2:
+
+ const compose = (f,g) => x => f(g(x))
+
+ const toUpper = str => str.toUpperCase()
+
+ const exclaim = str => str + !
+
+ const shout = compose(exclaim, toUpper)
+
+ console.log(shout('tears')) //TEARS!
+
+ Using curry and composition together allows you to create an unitary function that takes one single argument instead of two arguments
+
+ ## Creating identity functor
+ - A functor is a container that holds an object that is mapped over
+
+The identity functor has the next structure
+
+const Box = x => ({
+    map: f => Box(f(x)),
+    fold: f =>f(x),
+    toString: `Box(${x})`
+})
+
+for example:
+
+lets take this code
+
+const halfTheFirstLargestNumber = xs => {
+    const found = xs.filter(x => x >= 20)
+    const answer = first(found) / 2
+    return `The answer is ${answer}`
+}
+
+using functor
+
+const halfTheFirstLargestNumber = xs =>
+    Box(xs),
+    .map (xs => xs.filter(x => x >= 20))
+    .map (found => first(found) / 2)
+    .fold (answer =>  `The answer is ${answer}`)
+
+
+## Either Monad
+
+Either is a common type in functional Languages. Is commonly called a discriminated union. Which means an Either type can contain any of the types it sums up.
+
+- Either is a functor and a monad, it has both a map, a chain method, and a fold method. 
+- The Either type respects function purity and is effectively an if else statement, but inverted.
+
+- fromNullable is a null check for every function and avoids repetition
+from nullable has the next structure:
+
+const Right = x =>
+({
+ chain: f => f(x),
+ map: f => Right(f(x)),
+ fold: (f, g) => g(x),
+ toString: () => `Right(${x})`
+})
+
+const Left = x =>
+({
+ chain: f => Left(x),
+ map: f => Left(x),
+ fold: (f, g) => f(x),
+ toString: () => `Left(${x})`
+})
+
+
+const from nullable = x =>
+    x != null Right(x) : Left()
+
+
+
 
