@@ -170,6 +170,10 @@ const Left = x =>
 const from nullable = x =>
     x != null Right(x) : Left()
 
+## Task Monad
 
+Task monad is the functional equivalent of promise. Similarly to promise, Task takes resolve and reject functions, but in reversed order. A Task monad only starts running once it reaches the fork method, and this way avoids race conditions.
+
+- a traversable interface is when you can leap from different types
 
 
