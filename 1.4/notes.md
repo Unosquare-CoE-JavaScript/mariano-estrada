@@ -45,4 +45,26 @@ test2()
 
 setTimeout allows us to run code while its waiting for the timeout to end effectively making the first test function asynchronous
 
-##
+## Advantages and disadvantages
+
+Syncrhonous code
+Advantages 
+- Its easy to understand
+
+Disadvantages
+- May create blocking code
+- Less performant
+
+Asynchronous code
+Advantages
+- Very performant
+- Eliminates code blocking
+
+Disadvantages 
+- Can be difficult to understand
+
+## Event Loop
+Event loop makes sure that all of the code is handled
+- js is single threaded but the event loop allows it to run code aside
+- The evnet loop checks for the time to run each chunk of code
+
