@@ -244,3 +244,17 @@ It makes the code more readable and easy to understand
 
 ## Gernerators
 
+A generator is a way to write code where you can pause and the code wont continue until we tell them at some later time
+
+an example of the generator syntax is:
+function *test(){
+    console.log(1)
+    yield
+    console.log(2)
+}
+
+test()
+
+The yield keyword indicates the function when to pause
+Using the .next() method you run the function
+in the end it returns an object
