@@ -230,3 +230,17 @@ The Promise.allSettled() method eturns a promise that resolves after all of the 
 It is typically used when you have multiple asynchronous tasks that are not dependent on one another to complete successfully, or you'd always like to know the result of each promise.
 
 The Promise.any() method takes an iterable of Promise objects. It returns a single promise that resolves as soon as any of the promises in the iterable fulfills, with the value of the fulfilled promise.
+
+## Async/Await
+
+The async/await keywords appeared after promises in Js, using async/await requires understanding of promises
+- Their main purpose is to simplify promises
+
+Aync/Await enable us to write code as it was synchronous but it includes the asynchronous functionality
+It makes the code more readable and easy to understand
+
+- Async is used as a part of the function definition, it forces the function tu return a promise 
+- Await can only be used inside an async function, it waits for a promise
+
+## Gernerators
+
