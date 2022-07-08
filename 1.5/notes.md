@@ -95,3 +95,18 @@ JSX stands for Javascript XML
 - It transforms code ant turns it into code that can be read by the browser
 JSX allows us to write HTML elements in JavaScript and place them in the DOM 
 
+### State
+
+State is a key concept in React
+
+The state object is where you store property values that belongs to the component.
+
+When the state object changes, the component re-renders.
+
+- useState is one of the most important React Hooks
+
+Whenever you add two way binding it is a controlled component
+
+#### Stateful vs Stateless component
+
+In React, a stateful component is a component that holds some state. Stateless components, by contrast, have no state. 
