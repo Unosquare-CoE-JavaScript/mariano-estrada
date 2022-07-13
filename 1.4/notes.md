@@ -66,7 +66,7 @@ Disadvantages
 ## Event Loop
 Event loop makes sure that all of the code is handled
 - js is single threaded but the event loop allows it to run code aside
-- The evnet loop checks for the time to run each chunk of code
+- The event loop checks for the time to run each chunk of code
 
 The event loop continuously checks for queued messages and thereby makes it possible to do asynchronous coding
 
