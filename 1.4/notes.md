@@ -8,7 +8,7 @@ Synchronous code is what we write by default in Js, it is easy to follow
 
 Synchronous code must run in order and blocks anything else from running
 for example
-
+~~~
 const test = function(){
     console.log('start of the code)
     alert('notice me')
@@ -21,12 +21,12 @@ const test2 = function(){
 
 test()
 test2()
-
+~~~
 this code runs in a synchronous way because the code executes one line at a time
 
 One of the main goals of asynchronous code is to react to what the user does without waiting for it allowing for other partos of the code execute and run
 - asynchronous makes code much performant
-
+~~~
 const test = function(){
     setTimeout(function(){
         console.log('start of the code)
@@ -42,7 +42,7 @@ const test2 = function(){
 
 test()
 test2()
-
+~~~
 setTimeout allows us to run code while its waiting for the timeout to end effectively making the first test function asynchronous
 
 ## Advantages and disadvantages
@@ -84,13 +84,13 @@ this is achieved by passing a function inside of another function
 this happens because higher order functions exist
 
 for example:
-
+~~~
 let logCall = function(){
     console.log('this function was called back')
 }
 
 setTimeout(logCall,3000)
-
+~~~
 logCall is a callback because it happens after something else happens (setTimeout)
 
 ### Problems with callbacks
@@ -99,7 +99,7 @@ logCall is a callback because it happens after something else happens (setTimeou
 Nested callbacks, make it difficult to understand the code
 - Inversion of control
 when you turn control of your code to something else
-
+~~~
 let item1 = document.getElementById("b1");
 
 if (item1) {
@@ -121,7 +121,7 @@ if (item1) {
         a = b;
     });
 }
-
+~~~
 The problem with this code is that the ammount of calbacks make it difficult to understand and reason
 
 ## Promises
@@ -134,7 +134,7 @@ A promise represents the eventual completion or failure of anasynchronous operat
 A promise provides a resulting value
 
 Promises are 'thenable' this means we can use the method .then() on them
-
+~~~
 let promise = async function()
 
 promise.then()
@@ -147,7 +147,7 @@ asyncFunction()
 .then(function(val) {
     console.log("Second promise: " + val);
 });
-
+~~~
 ### Fetch
 Fetch is a simplear way to make http request for retreiving data
 Fetch is a part of the window object, not a part of js 
@@ -163,21 +163,21 @@ Fetch is a part of the window object, not a part of js
  It should be used when you need a function with local scope and needs to be run immediately
 
  this is a function expression
-
+~~~
  let product = function(){
      console.log(5 * 5)
  } 
 
  function()
-
+~~~
  here the function is invoked when we type the function call at the end of the function
 
  If we wanted to invoke it immediately then we should write the function expression as an IIFE
-
+~~~
  (function(){
      console.log(5 * 5)
  }) ()
-
+~~~
  #### Module Pattern Recap
 Modules allows us to create self contained code
 Advantages:
@@ -191,22 +191,24 @@ Advantages:
 - is a great feature for cleanup tasks
 
 for example:
-
+~~~
 asynchronousFunction(){
     .then(msg => console.log(msg))
     .catch(err => console.log(error))
     .finally( () => console.log('Cleaning up'))
 }
+~~~
 
 ## Promise all and race methods
 
 Both are methods inside the promise constructor
 they are called in the next ways
-
+~~~
 Promise.all()
-
+~~~
+~~~
 Promise.race()
-
+~~~
 the Promise.all() allows us to enter serverall promises inside of an array
 
 Promise.all([firstName(), middleName(), lastName])
@@ -219,10 +221,10 @@ This method is useful when you need information from various promises
 
 Promise.race() is literally a race hence the term
 only the first promise that is resolved gets returned
-
+~~~
 Promise.race([firstName(), middleName(), lastName])
 //'Mariano'
-
+~~~
 ## Promise.allSettled() Promise.any
 
 The Promise.allSettled() method eturns a promise that resolves after all of the given promises have either fulfilled or rejected, with an array of objects that each describes the outcome of each promise.
@@ -247,6 +249,7 @@ It makes the code more readable and easy to understand
 A generator is a way to write code where you can pause and the code wont continue until we tell them at some later time
 
 an example of the generator syntax is:
+~~~
 function *test(){
     console.log(1)
     yield
@@ -254,6 +257,7 @@ function *test(){
 }
 
 test()
+~~~
 
 The yield keyword indicates the function when to pause
 Using the .next() method you run the function
