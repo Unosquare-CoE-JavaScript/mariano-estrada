@@ -14,10 +14,9 @@ Functional Programming is programing with functions
      if(i === 1){return 2}
      if(i === 2){return 3}
 }
-
+~~~
 This is not total because it does not have an output for every input
-
-
+~~~
 const inc = i =>{
     return 1 + 2
 }
