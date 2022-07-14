@@ -31,9 +31,9 @@ const timeSince = comment =>{
     const then = new Date( comment.createdAt )
     return getDifference(now, then)
 }
-
+~~~
 This is not deterministic: If i give it a new comment everytime it will give me a different output
-
+~~~
 const getDifference = (now, then)=>{
     const days = Math.abs(now.getDate() - then.getDate())
     const hours = Math.abs(now.getHours() - then.getHours())

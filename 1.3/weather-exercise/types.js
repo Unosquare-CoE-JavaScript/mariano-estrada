@@ -4,15 +4,6 @@ const Last = x =>
   concat: o => o
 })
 
-// const Fn = f =>
-// ({
-//   runFn: f,
-//   map: g => Fn(x => g(f(x))),
-//   concat: o =>
-//     Fn(x => f(x).concat(o.runFn(x)))
-// })
-
-
 const Reducer = run =>
 ({
     run,

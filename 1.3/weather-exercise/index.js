@@ -8,7 +8,6 @@ const populateUI = (zip) =>
 const toLi = weather =>
   `<li>${weather.dt} ${weather.temp}</li>`
 
-///=============================
 const app = () => {
   const goButton = document.getElementById('go')
   const input = document.getElementById('zip')
