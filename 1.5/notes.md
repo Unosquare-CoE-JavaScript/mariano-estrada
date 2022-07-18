@@ -22,7 +22,7 @@ React has a smoother experience, it only request a single html page
 
 ### Arrow functions
 
-- newer syntax for creating variables
+- newer syntax for creating functions
 
 let arrow = ()=>{
     ...
@@ -110,3 +110,110 @@ Whenever you add two way binding it is a controlled component
 #### Stateful vs Stateless component
 
 In React, a stateful component is a component that holds some state. Stateless components, by contrast, have no state. 
+
+## JSX Limitations
+The main limitation JSX has is that if we have to adjacent tags with no wrapping around them we get an error
+for example:
+
+return(
+    <h1> hello </h1>
+    <h1> This will not work </h1>
+)
+
+You cant return more than one root JSX element
+
+This is why you shoud always wrap root elements
+
+return(
+    <div>
+        <h1> hello </h1>
+        <h1> hello </h1>
+    </div>
+)
+
+- React know how to work with arrays of JSX elements however it is needed that each element has an unique key prop
+- Since react requires you to wrap elements it creates a new problem called div soup it looks like this:
+
+<div>
+    <div>
+        <div>
+            <h1>Hello</h1>
+        </div>
+    </div>
+</div>
+
+This can be solved creating custom wrapper components
+
+Another solution for the last problem you could also use fragments
+
+A fragment its an empty wrapper component, it doesnt render any html element but it helps to comply JSX requirements
+
+Fragments look like this: 
+
+    <>
+        <h1>Hello</h1>
+    </>
+
+## React portals
+
+Portals provide a first-class way to render children into a DOM node that exists outside the DOM hierarchy of the parent component. 
+
+## Refs
+
+Refs is the shorthand used for references in React. It is similar to keys in React. It is an attribute which makes it possible to store a reference to particular DOM nodes or React elements. It provides a way to access React DOM nodes or React elements and how to interact with it. It is used when we want to change the value of a child component, without making the use of props.
+
+## Controlled vs Uncontrolled Components
+
+In React, Controlled Components are those in which form data is handled by the component’s state
+Uncontrolled components are those for which the form data is handled by the DOM itself.
+
+## Effects, Reducers and Context
+
+Effects (or side effects) are not predictable because they are actions which are performed with the "outside world." We perform a side effect when we need to reach outside of our React components to do something. Performing a side effect, however, will not give us a predictable result.
+
+## Use Effect
+
+## Use Reducer
+The useReducer Hook is similar to the useState Hook.
+
+It allows for custom state logic.
+
+If you find yourself keeping track of multiple pieces of state that rely on complex logic, useReducer may be useful.
+
+Use reduce has the following syntax:
+
+const[state, dispatchFn] = useReducer(reducerFn, initialState, initFn)
+
+Where:
+
+- state = the initial state snapshot
+- dispatchFn = a function that can be used to dispatch a new action
+- reducerFn = a function that is triggered automatically after a function gets dispatched
+- inital state = initial state
+- initFn = a function to set the initial state programmatically
+
+## useState vs useReducer
+
+We should use useReducer when using useState starts becoming very cumbersome and we are getting bugs and unexpected behavior
+
+* useState
+- Is the main state management tool
+- Great for independent state
+- Great if the pieces are individual
+
+* useReducer
+- Great if you need 'more power'
+- Should be considered if you have related pieces of data
+- Should be used with more complex state data
+
+## React Context
+
+React context allows us to manage state behind the scenes.
+React context allows us to pass down and use (consume) data in whatever component we need in our React app without using props.
+In other words, React context allows us to share data (state) across our components more easily.
+
+### Context Limitations
+
+- Context is not optimized for high frequency charges
+- Context should not be used to replace all component comunication or props
+
