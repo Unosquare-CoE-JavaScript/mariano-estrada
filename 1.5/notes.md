@@ -259,5 +259,20 @@ Traditionally prior to React 16.8 you had to use class bases components to manag
 
 - class based components cant use hooks
 
+this a class based component
 
+class User extends Component{
+  render(){
+    return <li className={classes.user}>{this.props.name}</li>;
+  }
+}
 
+this is the same component but in the functional form
+
+const User = (props) => {
+    return <li className={classes.user}>{props.name}</li>;
+ };
+
+both components can work together
+
+### Class based component lifecycle
