@@ -275,4 +275,23 @@ const User = (props) => {
 
 both components can work together
 
+In modern react we typically stick to functional components because they are more flexible however class based components are still a good option and can work with class based components
+
+Class based components should be used when:
+
+- You prefer them
+- You are working on an existing project where class based components are being used
+- You build an Error Boundary
+
 ### Class based component lifecycle
+
+- componentDidMount() is called once the component is mounted, is almost the equivalent of using useEffect with no dependencies
+- componentDidUpdate() is called once the component was re evaluated and re rendered, is almost as using useEffect with something in its dependencies
+- componentWillUnmounted() is called once the component unmounts, is like useEffect with a cleanup function
+
+### Error boundary
+
+Error boundaries are React components that catch JavaScript errors anywhere in their child component tree, log those errors, and display a fallback UI instead of the component tree that crashed.
+
+They allow you to cath an error in an elegant way insted of having your application crashed.
+
