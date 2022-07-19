@@ -295,3 +295,8 @@ Error boundaries are React components that catch JavaScript errors anywhere in t
 
 They allow you to cath an error in an elegant way insted of having your application crashed.
 
+## Custom hooks
+
+Custom hooks are just regular functions just as the regular hooks but they contain custom stateful logic creating re usable functions
+
+- Unlike regular functions custom react hooks can use other react hooks and react state
