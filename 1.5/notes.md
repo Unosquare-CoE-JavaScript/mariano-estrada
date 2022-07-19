@@ -217,3 +217,47 @@ In other words, React context allows us to share data (state) across our compone
 - Context is not optimized for high frequency charges
 - Context should not be used to replace all component comunication or props
 
+## React Behind the Scenes
+
+React is just a library that manages components, props, state and the components state
+- React hands all of that information off of the interface that it is working with
+
+React cares about:
+
+- Props: data passed from one component to another one
+- State: internal data
+- Context: component wide data
+
+React works with two DOMs
+
+- ReactDom: Interface to the web
+- RealDom: What the user sees
+
+The virtual dom determines how the component tree looks like and compares it to how it should looK
+
+Whenever you change state in a component that state gets re evaluated(the function of the component runs again)
+
+- Re evaluating components is different than re evaluating the dom
+
+React memo is used to avoid unnecesary re evaluations
+
+## Class based components
+
+Components can also be built with classes, this is however optional but it was the method used some time ago
+
+class based components look like this
+
+class Product extends Component {
+    render(){
+        return(
+            <h1>hello</h1>
+        )
+    }
+}
+
+Traditionally prior to React 16.8 you had to use class bases components to manage state and side effects, in that version hooks were introduced for functional components
+
+- class based components cant use hooks
+
+
+
