@@ -300,3 +300,42 @@ They allow you to cath an error in an elegant way insted of having your applicat
 Custom hooks are just regular functions just as the regular hooks but they contain custom stateful logic creating re usable functions
 
 - Unlike regular functions custom react hooks can use other react hooks and react state
+
+## Forms
+
+Forms can be difficult to work with because they can assume different states for example there can be one form where only one input is valid as well as there can be somes where there are several valid
+
+There are several types of validation for example:
+
+- When the form is submited
+- When an input is loosing focus
+- On every keystroke
+
+## Redux
+
+Redux is a state management system for cross component or app wide state
+
+### What is cross component and app wide state?
+
+- Local state is data that changes and affects the UI and belongs to a single component, it should be managed with useState or useReducer
+-  State that affects more components is cross component state, it is passed through props (prop drilling)
+-  App wide is state that affects all of the components, it requires react context or redux
+
+### Redux vs context
+
+Context has some potential disadvantages like:
+- Complex setup/management
+- Performance
+
+### How Redux Works
+
+Redux is all about having one central store, you never have more than one store, the data stored is used on the components of our app.
+
+Then our components subscribe to the store and when the data changes the data changes the store notifies and the components get the data they need and use it.
+
+- In redux components never directly manipulate the store data
+
+A reducer function is responsible for mutating (or changing) the state data
+
+Components dispatch actions (or trigger them) an action is an object that describes the operation the reducer should perform
+
