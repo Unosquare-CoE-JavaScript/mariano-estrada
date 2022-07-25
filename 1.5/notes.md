@@ -336,6 +336,17 @@ Then our components subscribe to the store and when the data changes the data ch
 - In redux components never directly manipulate the store data
 
 A reducer function is responsible for mutating (or changing) the state data
+- Reducers must be pure, side effect free and synchronous
 
 Components dispatch actions (or trigger them) an action is an object that describes the operation the reducer should perform
+
+in redux asyncrhonous code should be executed inside components using useEffect or inside the action creators
+
+### Redux Toolkit
+
+The Redux Toolkit package is intended to be the standard way to write Redux logic. It was originally created to help address three common concerns about Redux:
+
+- Configuring a Redux store is too complicated"
+- I have to add a lot of packages to get Redux to do anything useful
+- Redux requires too much boilerplate code
 
