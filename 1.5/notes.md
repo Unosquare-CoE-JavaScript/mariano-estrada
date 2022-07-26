@@ -350,3 +350,17 @@ The Redux Toolkit package is intended to be the standard way to write Redux logi
 - I have to add a lot of packages to get Redux to do anything useful
 - Redux requires too much boilerplate code
 
+## Deploy
+
+Software deployment includes all of the steps, processes, and activities that are required to make a software system or update available to its intended users
+
+The required steps to create a succesful deployment are the following:
+
+- Test Code
+- Optimize Code
+- Build App for production
+- Upload production code to server
+
+### Lazy Loading
+
+Means only loading the code chunks that are needed at the moment
