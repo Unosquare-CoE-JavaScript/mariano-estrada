@@ -364,3 +364,18 @@ The required steps to create a succesful deployment are the following:
 ### Lazy Loading
 
 Means only loading the code chunks that are needed at the moment
+
+## Authentication
+
+It should be used when the content has to be protected
+
+authenticaton is a two step process:
+
+- Get access/permission
+- Send request to protected resource
+
+There are two kinds of authentification
+
+- Server side sessions: Store unique identifier on a server, send the identifier to client
+- Authentication Token: Create a permission token on server and send it to the client
+
