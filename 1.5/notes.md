@@ -23,27 +23,29 @@ React has a smoother experience, it only request a single html page
 ### Arrow functions
 
 - newer syntax for creating functions
-
+~~~
 let arrow = ()=>{
     ...
 }
-
+~~~
 ### Exports and imports
 
 Since javascript code is modular it is important to be able to import and export content to/from another file
 
 default export:
+~~~
 import person from './person'
-
+~~~
 named export:
+~~~
 import {person} from './person'
-
+~~~
 ### Classes
 
 A class can have properties and methods
 A class is the blueprint for an object
 it can be instanciated with the new keyword
-
+~~~
 class Person{
     constructor(){
         this.name = 'mariano'
@@ -53,7 +55,7 @@ class Person{
         console.log(this.name)
     }
 }
-
+~~~
 const person = new Person()
 person.printMyName() //mariano
 
@@ -69,11 +71,11 @@ its syntax is three dots: ...
 ### Destructuring
 
 It allows us to easily extract array elements or object properties and store them in variables
-
+~~~
 const numbers = [1,2,3]
 [num1] = numbers
 console.log(num1) //1
-
+~~~
 ## React Basics
 
 React is all about components
@@ -114,26 +116,26 @@ In React, a stateful component is a component that holds some state. Stateless c
 ## JSX Limitations
 The main limitation JSX has is that if we have to adjacent tags with no wrapping around them we get an error
 for example:
-
+~~~
 return(
     <h1> hello </h1>
     <h1> This will not work </h1>
 )
-
+~~~
 You cant return more than one root JSX element
 
 This is why you shoud always wrap root elements
-
+~~~
 return(
     <div>
         <h1> hello </h1>
         <h1> hello </h1>
     </div>
 )
-
+~~~
 - React know how to work with arrays of JSX elements however it is needed that each element has an unique key prop
 - Since react requires you to wrap elements it creates a new problem called div soup it looks like this:
-
+~~~
 <div>
     <div>
         <div>
@@ -141,7 +143,7 @@ return(
         </div>
     </div>
 </div>
-
+~~~
 This can be solved creating custom wrapper components
 
 Another solution for the last problem you could also use fragments
@@ -149,11 +151,11 @@ Another solution for the last problem you could also use fragments
 A fragment its an empty wrapper component, it doesnt render any html element but it helps to comply JSX requirements
 
 Fragments look like this: 
-
+~~~
     <>
         <h1>Hello</h1>
     </>
-
+~~~
 ## React portals
 
 Portals provide a first-class way to render children into a DOM node that exists outside the DOM hierarchy of the parent component. 
@@ -246,7 +248,7 @@ React memo is used to avoid unnecesary re evaluations
 Components can also be built with classes, this is however optional but it was the method used some time ago
 
 class based components look like this
-
+~~~
 class Product extends Component {
     render(){
         return(
@@ -254,25 +256,25 @@ class Product extends Component {
         )
     }
 }
-
+~~~
 Traditionally prior to React 16.8 you had to use class bases components to manage state and side effects, in that version hooks were introduced for functional components
 
 - class based components cant use hooks
 
 this a class based component
-
+~~~
 class User extends Component{
   render(){
     return <li className={classes.user}>{this.props.name}</li>;
   }
 }
-
+~~~
 this is the same component but in the functional form
-
+~~~
 const User = (props) => {
     return <li className={classes.user}>{props.name}</li>;
  };
-
+~~~
 both components can work together
 
 In modern react we typically stick to functional components because they are more flexible however class based components are still a good option and can work with class based components
@@ -392,3 +394,58 @@ There are different types of automated tests:
 - End to End: Test complete scenarios
 
 The tools needed for proper testing are Jest and React Testing Library
+
+### Three A s of testing
+
+- Arrange: Set up test data, conditions and enviroment
+- Act: Run logic that should be tested
+- Assert: Compare results to expected results
+
+## Typescript
+
+Is a programing language that builds on Javascript, it adds more features to Js
+
+- It adds static typing to Javascript (Javascript is dynamically typed)
+
+### Types
+
+The types that Ts include are 
+
+number, string, boolean
+~~~
+let num:number = 42
+
+let user:string = 'Mariano'
+~~~
+### Arrays and objects
+
+Arrays and objects are worked like this:
+~~~
+let hobbies: string[] =['code']
+
+let person:any
+
+person ={
+    name:mariano,
+    age:27
+}
+~~~
+if there are different kinds of types it looks like this
+~~~
+let age: number | string 
+~~~
+### Type alias
+
+a type alias is when you can write a name for a specific type that you are going to be using more than once
+
+type Person = string
+
+### Function
+~~~
+function add(a: number,b: number){
+    console.log(a + b)
+}
+~~~
+### Generics
+Generics allow creating 'type variables' which can be used to create classes, functions & type aliases that don't need to explicitly define the types that they use
+
