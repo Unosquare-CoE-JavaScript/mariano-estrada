@@ -379,3 +379,16 @@ There are two kinds of authentification
 - Server side sessions: Store unique identifier on a server, send the identifier to client
 - Authentication Token: Create a permission token on server and send it to the client
 
+## Automated Testing
+
+Manual testing means write code, preview and test in browser, it is very error prone because it is very hard to test every case and possible scenario
+
+Automated testing is code that test your code, you can test everything no matter what you change
+
+There are different types of automated tests:
+
+- Unit test: writing code for indivitual functions (components for react), this is the most common way of testing
+- Integration Tests: Testing multiple components or blocks
+- End to End: Test complete scenarios
+
+The tools needed for proper testing are Jest and React Testing Library
