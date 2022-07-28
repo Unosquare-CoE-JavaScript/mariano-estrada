@@ -447,5 +447,5 @@ function add(a: number,b: number){
 }
 ~~~
 ### Generics
-Generics allow creating 'type variables' which can be used to create classes, functions & type aliases that don't need to explicitly define the types that they use
+Generics allow creating 'type variables' which can be used to create classes, functions & type aliases that don't need to explicitly define the types that they use.
 
