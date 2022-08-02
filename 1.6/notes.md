@@ -59,4 +59,11 @@ It means to write the tests before the code, write code according the tests
 it is also known as red-green testing.
 
 
+## ESLint and Prettier
 
+ESlint is a popular tool that analyses static text, it marks the syntax and breaks rules
+- Linting keeps code style consistent
+- Also catches errors in code
+
+Prettier is a code formatter and automaticaly formats code (indents, spacing)
+Linters adress format and style

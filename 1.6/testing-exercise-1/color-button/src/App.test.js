@@ -15,7 +15,7 @@ test('button has the correct initial color', () => {
 
   expect(colorButton).toHaveStyle({backgroundColor: 'blue'})
 
-  expect(colorButton.textContent).toBe('Change to red')
+  expect(colorButton).toHaveTextContent('Change to red')
 });
 
 test('initial conditions',()=>{
