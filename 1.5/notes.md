@@ -449,3 +449,31 @@ function add(a: number,b: number){
 ### Generics
 Generics allow creating 'type variables' which can be used to create classes, functions & type aliases that don't need to explicitly define the types that they use.
 
+## NextJs
+
+NextJs is the react framework for production, next js offers features that allow the creation for production apps
+
+NextJs builds up on React, it is a framework because it guides you on how to create the code, enhances react, and makes creating apps easier
+
+NextJs has lots of built in features (for example: routing) that help you solve common react problems and it has a clear guidance on how to solve them.
+
+NextJs allows us to still write react code and use react features (components, state, props, etc...)
+
+The most important feature that NextJs has is Server Side Rendering
+
+### Server Side Rendering
+
+Server Side Rendering is all about preparing the content of the application in the server instead of the client side.
+
+Server-side rendering is an applications ability to convert HTML files on the server into a fully rendered HTML page for the client. The web browser submits a request for information from the server, which instantly responds by sending a fully rendered page to the client. Search engines can index content prior to delivery, which is beneficial for Search Engine Optimization purposes
+
+React has built in features that allow for Server Side Rendering however, it needs extra setup while NextJs has it built it
+
+### Routing
+
+NextJs has routing built in, it allows us to define pages and routes with files and folders instead of code
+This cenables the creation of applications with less code and makes them more understandable
+
+### Build Fullstack apps
+
+NextJs makes very easy to create backend code with NodeJs to our React/NextJs code
