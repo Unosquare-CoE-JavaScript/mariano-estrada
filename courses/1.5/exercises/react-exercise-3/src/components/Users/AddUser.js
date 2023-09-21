@@ -1,34 +1,34 @@
-import React, { useState } from "react";
-import Card from "../UI/Card";
-import Button from "../UI/Button";
-import classes from "./AddUser.module.css";
-import ErrorModal from "../UI/ErrorModal";
+import React, { useState } from 'react';
+import Card from '../UI/Card';
+import Button from '../UI/Button';
+import classes from './AddUser.module.css';
+import ErrorModal from '../UI/ErrorModal';
 
 const AddUser = (props) => {
-  const [enteredUsername, setEnteredUsername] = useState("");
-  const [enteredAge, setEnteredAge] = useState("");
-  const [error, setError] = useState("");
+  const [enteredUsername, setEnteredUsername] = useState('');
+  const [enteredAge, setEnteredAge] = useState('');
+  const [error, setError] = useState('');
 
   const addUserHandler = (e) => {
     e.preventDefault();
     if (enteredUsername.trim().length === 0 || enteredAge.trim().length === 0) {
       setError({
-        title: "Invalid input",
-        message: "Enter a valid name and age",
+        title: 'Invalid input',
+        message: 'Enter a valid name and age',
       });
       return;
     }
 
     if (+enteredAge < 1) {
       setError({
-        title: "Invalid age",
-        message: "Enter a valid age",
+        title: 'Invalid age',
+        message: 'Enter a valid age',
       });
       return;
     }
     props.onAddUser(enteredUsername, enteredAge);
-    setEnteredUsername("");
-    setEnteredAge("");
+    setEnteredUsername('');
+    setEnteredAge('');
   };
 
   const usernameChangeHandler = (e) => {
@@ -45,7 +45,11 @@ const AddUser = (props) => {
 
   return (
     <>
-      <div className={classes.backdrop} onClick={props.onConfirm} onConfirm={errorHandler}>
+      <div
+        className={classes.backdrop}
+        onClick={props.onConfirm}
+        onConfirm={errorHandler}
+      >
         {error && <ErrorModal title={error.title} message={error.message} />}
         <Card className={classes.input}>
           <form onSubmit={addUserHandler}>
@@ -63,7 +67,9 @@ const AddUser = (props) => {
               value={enteredAge}
               onChange={ageChangeHandler}
             ></input>
-            <Button type="submit" onClick={props.onConfirm}>Add user</Button>
+            <Button type="submit" onClick={props.onConfirm}>
+              Add user
+            </Button>
           </form>
         </Card>
       </div>

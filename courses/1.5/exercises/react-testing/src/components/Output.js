@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const Output = (props) => {
-  return (
-    <p>{props.children}</p>
-  )
-}
+  return <p>{props.children}</p>;
+};
 
-export default Output
+export default Output;

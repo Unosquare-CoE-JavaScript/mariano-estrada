@@ -1,17 +1,17 @@
 function useCalc(calc, keys) {
   var keyMappings = {
-    "+": "plus",
-    "-": "minus",
-    "*": "mult",
-    "/": "div",
-    "=": "eq",
+    '+': 'plus',
+    '-': 'minus',
+    '*': 'mult',
+    '/': 'div',
+    '=': 'eq',
   };
 
   return [...keys].reduce(function showDisplay(display, key) {
-    var fn = keyMappings[key] || "number";
+    var fn = keyMappings[key] || 'number';
     var ret = String(calc[fn](key));
-    return display + (ret != "" && key == "=" ? "=" : "") + ret;
-  }, "");
+    return display + (ret != '' && key == '=' ? '=' : '') + ret;
+  }, '');
 }
 
 //-----------------------------------------------------
@@ -30,7 +30,7 @@ function formatTotal(display) {
     }
     // whole number?
     if (Number.isInteger(display)) {
-      display = display.toPrecision(maxDigits).replace(/\.0+$/, "");
+      display = display.toPrecision(maxDigits).replace(/\.0+$/, '');
     }
     // decimal
     else {
@@ -40,10 +40,10 @@ function formatTotal(display) {
       if (Math.abs(display) >= 0 && Math.abs(display) < 1) {
         maxDigits--;
       }
-      display = display.toPrecision(maxDigits).replace(/0+$/, "");
+      display = display.toPrecision(maxDigits).replace(/0+$/, '');
     }
   } else {
-    display = "ERR";
+    display = 'ERR';
   }
   return display;
 }
@@ -52,22 +52,22 @@ function formatTotal(display) {
 
 function calculator() {
   var currentTotal = 0;
-  var currentVal = "";
-  var currentOper = "=";
+  var currentVal = '';
+  var currentOper = '=';
   var publicAPI = {
     number,
     eq,
     plus() {
-      return operator("+");
+      return operator('+');
     },
     minus() {
-      return operator("-");
+      return operator('-');
     },
     mult() {
-      return operator("*");
+      return operator('*');
     },
     div() {
-      return operator("/");
+      return operator('/');
     },
   };
   return publicAPI;
@@ -79,34 +79,34 @@ function calculator() {
     }
   }
   function eq() {
-    if (currentOper != "=") {
+    if (currentOper != '=') {
       currentTotal = op(currentTotal, currentOper, Number(currentVal));
-      currentOper = "=";
-      currentVal = "";
+      currentOper = '=';
+      currentVal = '';
       return formatTotal(currentTotal);
     }
-    return "";
+    return '';
   }
   function operator(key) {
-    if (currentOper != "=" && currentVal != "") {
+    if (currentOper != '=' && currentVal != '') {
       eq();
-    } else if (currentVal != "") {
+    } else if (currentVal != '') {
       currentTotal = Number(currentVal);
     }
     currentOper = key;
-    currentVal = "";
+    currentVal = '';
     return key;
   }
 
   function op(val1, oper, val2) {
     var ops = {
-      "+": (v1, v2) => v1 + v2,
-      "-": (v1, v2) => v1 - v2,
-      "*": (v1, v2) => v1 * v2,
-      "/": (v1, v2) => v1 / v2,
+      '+': (v1, v2) => v1 + v2,
+      '-': (v1, v2) => v1 - v2,
+      '*': (v1, v2) => v1 * v2,
+      '/': (v1, v2) => v1 / v2,
     };
     return ops[oper](val1, val2);
   }
 }
 var calc = calculator();
-console.log(useCalc(calc, "4+3="))
+console.log(useCalc(calc, '4+3='));

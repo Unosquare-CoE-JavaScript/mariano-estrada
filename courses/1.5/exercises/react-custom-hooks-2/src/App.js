@@ -15,12 +15,18 @@ function App() {
     }
 
     setTasks(loadedTasks);
-  }
+  };
 
-
-  const {isLoading, error, sendRequest: fetchTasks} = useHttp({
-  url: 'https://custom-hooks-27578-default-rtdb.firebaseio.com/tasks.json'
-}, transformTasks)
+  const {
+    isLoading,
+    error,
+    sendRequest: fetchTasks,
+  } = useHttp(
+    {
+      url: 'https://custom-hooks-27578-default-rtdb.firebaseio.com/tasks.json',
+    },
+    transformTasks,
+  );
 
   useEffect(() => {
     fetchTasks();

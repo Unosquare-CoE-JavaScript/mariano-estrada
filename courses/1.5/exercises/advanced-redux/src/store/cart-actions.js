@@ -1,4 +1,3 @@
-
 import { uiActions } from './ui-slice';
 import { cartActions } from './cart-slice';
 
@@ -6,7 +5,7 @@ export const fetchCartData = () => {
   return async (dispatch) => {
     const fetchData = async () => {
       const response = await fetch(
-        'https://react-redux-8c4fd-default-rtdb.firebaseio.com/cart.json'
+        'https://react-redux-8c4fd-default-rtdb.firebaseio.com/cart.json',
       );
 
       if (!response.ok) {
@@ -24,7 +23,7 @@ export const fetchCartData = () => {
         cartActions.replaceCart({
           items: cartData.items || [],
           totalQuantity: cartData.totalQuantity,
-        })
+        }),
       );
     } catch (error) {
       dispatch(
@@ -32,7 +31,7 @@ export const fetchCartData = () => {
           status: 'error',
           title: 'Error!',
           message: 'Fetching cart data failed!',
-        })
+        }),
       );
     }
   };
@@ -45,7 +44,7 @@ export const sendCartData = (cart) => {
         status: 'pending',
         title: 'Sending...',
         message: 'Sending cart data!',
-      })
+      }),
     );
 
     const sendRequest = async () => {
@@ -57,7 +56,7 @@ export const sendCartData = (cart) => {
             items: cart.items,
             totalQuantity: cart.totalQuantity,
           }),
-        }
+        },
       );
 
       if (!response.ok) {
@@ -73,7 +72,7 @@ export const sendCartData = (cart) => {
           status: 'success',
           title: 'Success!',
           message: 'Sent cart data successfully!',
-        })
+        }),
       );
     } catch (error) {
       dispatch(
@@ -81,7 +80,7 @@ export const sendCartData = (cart) => {
           status: 'error',
           title: 'Error!',
           message: 'Sending cart data failed!',
-        })
+        }),
       );
     }
   };

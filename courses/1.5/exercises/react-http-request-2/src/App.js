@@ -13,7 +13,9 @@ function App() {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch('https://custom-hooks-27578-default-rtdb.firebaseio.com/tasks.json');
+      const response = await fetch(
+        'https://custom-hooks-27578-default-rtdb.firebaseio.com/tasks.json',
+      );
       if (!response.ok) {
         throw new Error('Something went wrong!');
       }
@@ -40,15 +42,18 @@ function App() {
   }, [fetchMoviesHandler]);
 
   async function addMovieHandler(movie) {
-   const response = await fetch('https://custom-hooks-27578-default-rtdb.firebaseio.com/tasks.json',{
-      method: 'POST',
-      body: JSON.stringify(movie),
-      headers:{
-       'Content-Type': 'application/json'
-      }
-    })
-    const data = await response.json()
-    console.log(data)
+    const response = await fetch(
+      'https://custom-hooks-27578-default-rtdb.firebaseio.com/tasks.json',
+      {
+        method: 'POST',
+        body: JSON.stringify(movie),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+    const data = await response.json();
+    console.log(data);
   }
 
   let content = <p>Found no movies.</p>;
