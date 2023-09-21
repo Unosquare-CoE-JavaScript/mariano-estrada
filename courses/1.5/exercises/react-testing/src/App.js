@@ -5,8 +5,8 @@ import Async from './components/Async';
 function App() {
   return (
     <div className="App">
-      <Async/>
-      <Greeting/>
+      <Async />
+      <Greeting />
     </div>
   );
 }

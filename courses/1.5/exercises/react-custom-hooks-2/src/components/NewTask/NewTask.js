@@ -19,7 +19,7 @@ const NewTask = (props) => {
           headers: {
             'Content-Type': 'application/json',
           },
-        }
+        },
       );
 
       if (!response.ok) {

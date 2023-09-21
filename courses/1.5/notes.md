@@ -3,6 +3,7 @@
 ## What is React?
 
 React is a Javascript library for building interfaces
+
 - it is client side
 - is all bout building modern reactive applications
 
@@ -23,29 +24,36 @@ React has a smoother experience, it only request a single html page
 ### Arrow functions
 
 - newer syntax for creating functions
-~~~
+
+```
 let arrow = ()=>{
     ...
 }
-~~~
+```
+
 ### Exports and imports
 
 Since javascript code is modular it is important to be able to import and export content to/from another file
 
 default export:
-~~~
+
+```
 import person from './person'
-~~~
+```
+
 named export:
-~~~
+
+```
 import {person} from './person'
-~~~
+```
+
 ### Classes
 
 A class can have properties and methods
 A class is the blueprint for an object
 it can be instanciated with the new keyword
-~~~
+
+```
 class Person{
     constructor(){
         this.name = 'mariano'
@@ -55,7 +63,8 @@ class Person{
         console.log(this.name)
     }
 }
-~~~
+```
+
 const person = new Person()
 person.printMyName() //mariano
 
@@ -65,17 +74,20 @@ person.printMyName() //mariano
 ### Spread and rest operator
 
 its syntax is three dots: ...
+
 - The spread operator is used to spread up array elements or properites
 - The rest operator is used to merge a list of arguments into an array
 
 ### Destructuring
 
 It allows us to easily extract array elements or object properties and store them in variables
-~~~
+
+```
 const numbers = [1,2,3]
 [num1] = numbers
 console.log(num1) //1
-~~~
+```
+
 ## React Basics
 
 React is all about components
@@ -86,7 +98,8 @@ why componentes?
 
 ### How is a component built
 
-React allows you to create re usable and reactive components consisting of HTML, CSS and JS 
+React allows you to create re usable and reactive components consisting of HTML, CSS and JS
+
 - Declarative approach => Declare the desired target states and let React figure out the actual DOM instruction
 - A component in React is just a Javascript Function
 - The main goal of a component is to split bigger chunks of code into smaller functions
@@ -94,8 +107,9 @@ React allows you to create re usable and reactive components consisting of HTML,
 ### JSX
 
 JSX stands for Javascript XML
+
 - It transforms code ant turns it into code that can be read by the browser
-JSX allows us to write HTML elements in JavaScript and place them in the DOM 
+  JSX allows us to write HTML elements in JavaScript and place them in the DOM
 
 ### State
 
@@ -111,31 +125,37 @@ Whenever you add two way binding it is a controlled component
 
 #### Stateful vs Stateless component
 
-In React, a stateful component is a component that holds some state. Stateless components, by contrast, have no state. 
+In React, a stateful component is a component that holds some state. Stateless components, by contrast, have no state.
 
 ## JSX Limitations
+
 The main limitation JSX has is that if we have to adjacent tags with no wrapping around them we get an error
 for example:
-~~~
+
+```
 return(
     <h1> hello </h1>
     <h1> This will not work </h1>
 )
-~~~
+```
+
 You cant return more than one root JSX element
 
 This is why you shoud always wrap root elements
-~~~
+
+```
 return(
     <div>
         <h1> hello </h1>
         <h1> hello </h1>
     </div>
 )
-~~~
+```
+
 - React know how to work with arrays of JSX elements however it is needed that each element has an unique key prop
 - Since react requires you to wrap elements it creates a new problem called div soup it looks like this:
-~~~
+
+```
 <div>
     <div>
         <div>
@@ -143,22 +163,25 @@ return(
         </div>
     </div>
 </div>
-~~~
+```
+
 This can be solved creating custom wrapper components
 
 Another solution for the last problem you could also use fragments
 
 A fragment its an empty wrapper component, it doesnt render any html element but it helps to comply JSX requirements
 
-Fragments look like this: 
-~~~
+Fragments look like this:
+
+```
     <>
         <h1>Hello</h1>
     </>
-~~~
+```
+
 ## React portals
 
-Portals provide a first-class way to render children into a DOM node that exists outside the DOM hierarchy of the parent component. 
+Portals provide a first-class way to render children into a DOM node that exists outside the DOM hierarchy of the parent component.
 
 ## Refs
 
@@ -176,6 +199,7 @@ Effects (or side effects) are not predictable because they are actions which are
 ## Use Effect
 
 ## Use Reducer
+
 The useReducer Hook is similar to the useState Hook.
 
 It allows for custom state logic.
@@ -198,15 +222,17 @@ Where:
 
 We should use useReducer when using useState starts becoming very cumbersome and we are getting bugs and unexpected behavior
 
-* useState
-- Is the main state management tool
-- Great for independent state
-- Great if the pieces are individual
+- useState
 
-* useReducer
-- Great if you need 'more power'
-- Should be considered if you have related pieces of data
-- Should be used with more complex state data
+* Is the main state management tool
+* Great for independent state
+* Great if the pieces are individual
+
+- useReducer
+
+* Great if you need 'more power'
+* Should be considered if you have related pieces of data
+* Should be used with more complex state data
 
 ## React Context
 
@@ -222,6 +248,7 @@ In other words, React context allows us to share data (state) across our compone
 ## React Behind the Scenes
 
 React is just a library that manages components, props, state and the components state
+
 - React hands all of that information off of the interface that it is working with
 
 React cares about:
@@ -248,7 +275,8 @@ React memo is used to avoid unnecesary re evaluations
 Components can also be built with classes, this is however optional but it was the method used some time ago
 
 class based components look like this
-~~~
+
+```
 class Product extends Component {
     render(){
         return(
@@ -256,25 +284,30 @@ class Product extends Component {
         )
     }
 }
-~~~
+```
+
 Traditionally prior to React 16.8 you had to use class bases components to manage state and side effects, in that version hooks were introduced for functional components
 
 - class based components cant use hooks
 
 this a class based component
-~~~
+
+```
 class User extends Component{
   render(){
     return <li className={classes.user}>{this.props.name}</li>;
   }
 }
-~~~
+```
+
 this is the same component but in the functional form
-~~~
+
+```
 const User = (props) => {
     return <li className={classes.user}>{props.name}</li>;
  };
-~~~
+```
+
 both components can work together
 
 In modern react we typically stick to functional components because they are more flexible however class based components are still a good option and can work with class based components
@@ -320,12 +353,13 @@ Redux is a state management system for cross component or app wide state
 ### What is cross component and app wide state?
 
 - Local state is data that changes and affects the UI and belongs to a single component, it should be managed with useState or useReducer
--  State that affects more components is cross component state, it is passed through props (prop drilling)
--  App wide is state that affects all of the components, it requires react context or redux
+- State that affects more components is cross component state, it is passed through props (prop drilling)
+- App wide is state that affects all of the components, it requires react context or redux
 
 ### Redux vs context
 
 Context has some potential disadvantages like:
+
 - Complex setup/management
 - Performance
 
@@ -338,6 +372,7 @@ Then our components subscribe to the store and when the data changes the data ch
 - In redux components never directly manipulate the store data
 
 A reducer function is responsible for mutating (or changing) the state data
+
 - Reducers must be pure, side effect free and synchronous
 
 Components dispatch actions (or trigger them) an action is an object that describes the operation the reducer should perform
@@ -409,18 +444,21 @@ Is a programing language that builds on Javascript, it adds more features to Js
 
 ### Types
 
-The types that Ts include are 
+The types that Ts include are
 
 number, string, boolean
-~~~
+
+```
 let num:number = 42
 
 let user:string = 'Mariano'
-~~~
+```
+
 ### Arrays and objects
 
 Arrays and objects are worked like this:
-~~~
+
+```
 let hobbies: string[] =['code']
 
 let person:any
@@ -429,11 +467,14 @@ person ={
     name:mariano,
     age:27
 }
-~~~
+```
+
 if there are different kinds of types it looks like this
-~~~
-let age: number | string 
-~~~
+
+```
+let age: number | string
+```
+
 ### Type alias
 
 a type alias is when you can write a name for a specific type that you are going to be using more than once
@@ -441,12 +482,15 @@ a type alias is when you can write a name for a specific type that you are going
 type Person = string
 
 ### Function
-~~~
+
+```
 function add(a: number,b: number){
     console.log(a + b)
 }
-~~~
+```
+
 ### Generics
+
 Generics allow creating 'type variables' which can be used to create classes, functions & type aliases that don't need to explicitly define the types that they use.
 
 ## NextJs

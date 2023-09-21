@@ -1,8 +1,8 @@
 function useCalc(calc, keys) {
   return [...keys].reduce(function showDisplay(display, key) {
     var ret = String(calc(key));
-    return display + (ret != "" && key == "=" ? "=" : "") + ret;
-  }, "");
+    return display + (ret != '' && key == '=' ? '=' : '') + ret;
+  }, '');
 }
 
 //-----------------------------------------------------
@@ -21,7 +21,7 @@ function formatTotal(display) {
     }
     // whole number?
     if (Number.isInteger(display)) {
-      display = display.toPrecision(maxDigits).replace(/\.0+$/, "");
+      display = display.toPrecision(maxDigits).replace(/\.0+$/, '');
     }
     // decimal
     else {
@@ -31,57 +31,55 @@ function formatTotal(display) {
       if (Math.abs(display) >= 0 && Math.abs(display) < 1) {
         maxDigits--;
       }
-      display = display.toPrecision(maxDigits).replace(/0+$/, "");
+      display = display.toPrecision(maxDigits).replace(/0+$/, '');
     }
   } else {
-    display = "ERR";
+    display = 'ERR';
   }
   return display;
 }
 
 //-----------------------------------------------------
 
-//Usecalc and formatTotal are necessary tools 
+//Usecalc and formatTotal are necessary tools
 
 function calculator() {
   var currentTotal = 0;
-  var currentVal = "";
-  var currentOper = "=";
+  var currentVal = '';
+  var currentOper = '=';
   return pressKey;
   function pressKey(key) {
     if (/\d/.test(key)) {
       currentVal += key;
       return key;
-    }
-    else if (/[+*/-]/.test(key)) {
-      if (currentOper != "=" && currentVal != "") {
-        pressKey("=");
-      } else if (currentVal != "") {
+    } else if (/[+*/-]/.test(key)) {
+      if (currentOper != '=' && currentVal != '') {
+        pressKey('=');
+      } else if (currentVal != '') {
         currentTotal = Number(currentVal);
       }
       currentOper = key;
-      currentVal = "";
+      currentVal = '';
       return key;
-    }
-    else if (key == "=" && currentOper != "=") {
+    } else if (key == '=' && currentOper != '=') {
       currentTotal = op(currentTotal, currentOper, Number(currentVal));
-      currentOper = "=";
-      currentVal = "";
+      currentOper = '=';
+      currentVal = '';
       return formatTotal(currentTotal);
     }
-    return "";
+    return '';
   }
 
   function op(val1, oper, val2) {
     var ops = {
-      "+": (v1, v2) => v1 + v2,
-      "-": (v1, v2) => v1 - v2,
-      "*": (v1, v2) => v1 * v2,
-      "/": (v1, v2) => v1 / v2,
+      '+': (v1, v2) => v1 + v2,
+      '-': (v1, v2) => v1 - v2,
+      '*': (v1, v2) => v1 * v2,
+      '/': (v1, v2) => v1 / v2,
     };
     return ops[oper](val1, val2);
   }
 }
 var calc = calculator();
 
-console.log(useCalc(calc, "4+3="));
+console.log(useCalc(calc, '4+3='));

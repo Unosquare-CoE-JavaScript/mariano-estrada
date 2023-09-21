@@ -1,16 +1,16 @@
-const path = require("path");
+const path = require('path');
 
-module.exports = env => ({
-  mode: env === "production" ? "production" : "development",
+module.exports = (env) => ({
+  mode: env === 'production' ? 'production' : 'development',
   entry: {
-    index: "./index.js"
+    index: './index.js',
   },
   output: {
-    filename: "./[name].bundle.js",
-    path: path.resolve(__dirname)
+    filename: './[name].bundle.js',
+    path: path.resolve(__dirname),
   },
   devServer: {
-    contentBase: "./"
+    contentBase: './',
   },
   module: {
     rules: [
@@ -18,22 +18,22 @@ module.exports = env => ({
         test: /\js$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
             babelrc: false,
             presets: [
               [
-                "@babel/preset-env",
+                '@babel/preset-env',
                 {
-                  targets: { chrome: "69" },
-                  shippedProposals: true
-                }
-              ]
-            ]
-          }
-        }
-      }
-    ]
+                  targets: { chrome: '69' },
+                  shippedProposals: true,
+                },
+              ],
+            ],
+          },
+        },
+      },
+    ],
   },
-  devtool: "cheap-module-source-map"
+  devtool: 'cheap-module-source-map',
 });

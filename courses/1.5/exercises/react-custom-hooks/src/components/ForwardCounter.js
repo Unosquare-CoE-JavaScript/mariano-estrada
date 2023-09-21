@@ -4,8 +4,7 @@ import useCounter from '../hooks/use-counter';
 import Card from './Card';
 
 const ForwardCounter = () => {
-
-  const counter = useCounter()
+  const counter = useCounter();
   // const [counter, setCounter] = useState(0);
 
   // useEffect(() => {

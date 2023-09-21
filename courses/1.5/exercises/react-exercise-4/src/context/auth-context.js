@@ -1,35 +1,43 @@
-import React,{useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react';
 
 const AuthContext = React.createContext({
-    isLoggedIn: false,
-    onLogout: ()=>{},
-    onLogin: ()=>{}
-})
+  isLoggedIn: false,
+  onLogout: () => {},
+  onLogin: () => {},
+});
 
-export const AuthContextProvider = (props)=>{
-    const [isLoggedIn, setIsLoggedIn] = useState(false)
+export const AuthContextProvider = (props) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    useEffect(() => {
-        const storedUserLoggedIn = localStorage.getItem("isLoggedIn");
-    
-        if (storedUserLoggedIn === 1) {
-          setIsLoggedIn(true);
-        }
-      }, []);
+  useEffect(() => {
+    const storedUserLoggedIn = localStorage.getItem('isLoggedIn');
 
-    const logoutHandler = () => {
-        localStorage.removeItem('isLoggedIn')
-        setIsLoggedIn(false)
+    if (storedUserLoggedIn === 1) {
+      setIsLoggedIn(true);
     }
+  }, []);
 
-    const loginHandler = () => {
-        localStorage.setItem("isLoggedIn", "1");
-        setIsLoggedIn(true)
-    }
+  const logoutHandler = () => {
+    localStorage.removeItem('isLoggedIn');
+    setIsLoggedIn(false);
+  };
 
-    return(
-        <AuthContext.Provider value={{isLoggedIn: isLoggedIn, onLogout: logoutHandler, onLogin: loginHandler }}>{props.children}</AuthContext.Provider>
-    )
-}
+  const loginHandler = () => {
+    localStorage.setItem('isLoggedIn', '1');
+    setIsLoggedIn(true);
+  };
 
-export default AuthContext
+  return (
+    <AuthContext.Provider
+      value={{
+        isLoggedIn: isLoggedIn,
+        onLogout: logoutHandler,
+        onLogin: loginHandler,
+      }}
+    >
+      {props.children}
+    </AuthContext.Provider>
+  );
+};
+
+export default AuthContext;

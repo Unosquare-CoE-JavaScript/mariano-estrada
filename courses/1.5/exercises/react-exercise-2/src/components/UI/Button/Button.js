@@ -1,16 +1,16 @@
 //Button css module
-import React from "react";
-import styles from './Button.module.css'
+import React from 'react';
+import styles from './Button.module.css';
 
 const Button = (props) => {
   return (
     <button type={props.type} className={styles.button} onClick={props.onClick}>
       {props.children}
-   </button>
-  )
-}
+    </button>
+  );
+};
 
-export default Button
+export default Button;
 //Button styled compone
 // import styled from "styled-components";
 

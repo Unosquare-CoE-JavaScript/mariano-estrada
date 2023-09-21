@@ -89,10 +89,10 @@ const Cart = (props) => {
     <React.Fragment>
       <p>Successfully sent the order!</p>
       <div className={classes.actions}>
-      <button className={classes.button} onClick={props.onClose}>
-        Close
-      </button>
-    </div>
+        <button className={classes.button} onClick={props.onClose}>
+          Close
+        </button>
+      </div>
     </React.Fragment>
   );
 

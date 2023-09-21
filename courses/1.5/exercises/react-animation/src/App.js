@@ -1,15 +1,15 @@
-import React, { Component } from "react";
-import Transition from "react-transition-group/Transition";
+import React, { Component } from 'react';
+import Transition from 'react-transition-group/Transition';
 
-import "./App.css";
-import Modal from "./components/Modal/Modal";
-import Backdrop from "./components/Backdrop/Backdrop";
-import List from "./components/List/List";
+import './App.css';
+import Modal from './components/Modal/Modal';
+import Backdrop from './components/Backdrop/Backdrop';
+import List from './components/List/List';
 
 class App extends Component {
   state = {
     modalIsOpen: false,
-    showBlock: false
+    showBlock: false,
   };
 
   showModal = () => {
@@ -27,7 +27,8 @@ class App extends Component {
         <button
           className="Button"
           onClick={() =>
-            this.setState(prevState => ({ showBlock: !prevState.showBlock }))}
+            this.setState((prevState) => ({ showBlock: !prevState.showBlock }))
+          }
         >
           Toggle
         </button>
@@ -44,15 +45,15 @@ class App extends Component {
           onExiting={() => console.log('onExiting')}
           onExited={() => console.log('onExited')}
         >
-          {state => (
+          {(state) => (
             <div
               style={{
-                backgroundColor: "red",
+                backgroundColor: 'red',
                 width: 100,
                 height: 100,
-                margin: "auto",
-                transition: "opacity 1s ease-out",
-                opacity: state === "exiting" ? 0 : 1
+                margin: 'auto',
+                transition: 'opacity 1s ease-out',
+                opacity: state === 'exiting' ? 0 : 1,
               }}
             />
           )}

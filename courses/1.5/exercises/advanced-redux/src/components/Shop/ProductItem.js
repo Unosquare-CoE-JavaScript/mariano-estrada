@@ -18,7 +18,7 @@ const ProductItem = (props) => {
         id,
         title,
         price,
-      })
+      }),
     );
   };
 
