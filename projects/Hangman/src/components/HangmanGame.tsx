@@ -22,7 +22,7 @@ interface HangmanGameProps {
 
     return (
       <>
-        <div className="text-6xl">{displayedWord}</div>
+        <div className="text-6xl" >{displayedWord}</div>
   
         <div className="text-3xl mt-4">
           <input
@@ -31,6 +31,7 @@ interface HangmanGameProps {
             placeholder="Type your guess"
             value={guessedLetter}
             onChange={(e) => setGuessedLetter(e.target.value)}
+            aria-label="Letter"
           />
           <button
             onClick={handleGuessSubmission}

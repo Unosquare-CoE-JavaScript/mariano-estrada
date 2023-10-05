@@ -29,7 +29,7 @@ function App({ wordProvider }: AppProps) {
   const { hasWon } = state;
 
   return (
-    <div className="flex flex-col items-center mt-10">
+    <div className="flex flex-col items-center mt-10" data-testid='hangman-container'>
       <div className="text-5xl font-bold mb-10">Hangman Game</div>
       <div className="flex flex-col md:flex-row w-full md:w-4/6 mx-auto justify-center items-center md:space-x-8">
         <div className="flex-auto w-full md:w-2/5 md:order-1 md:mr-4 text-center md:text-left">

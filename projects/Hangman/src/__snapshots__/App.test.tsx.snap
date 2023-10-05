@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<App /> when there is a wrong guess the wrong letter should appear in the wrong guesses section 1`] = `
+<div
+  class="flex flex-col items-center mt-10"
+  data-testid="hangman-container"
+>
+  <div
+    class="text-5xl font-bold mb-10"
+  >
+    Hangman Game
+  </div>
+  <div
+    class="flex flex-col md:flex-row w-full md:w-4/6 mx-auto justify-center items-center md:space-x-8"
+  >
+    <div
+      class="flex-auto w-full md:w-2/5 md:order-1 md:mr-4 text-center md:text-left"
+    >
+      <div
+        class="text-2xl font-bold mb-2 mt-5 md:mt-0"
+      >
+        Guesses left: 
+        4
+      </div>
+      <div
+        class="text-2xl font-bold mb-2 mt-5 md:mt-0"
+      >
+        Wrong Guesses: 
+      </div>
+      <div
+        class="text-1xl font-bold mb-2 mt-3 md:mt-0 flex space-x-2"
+      >
+        <div
+          class="text-lg text-red-500 rounded px-2 py-1"
+        >
+          x
+        </div>
+      </div>
+      <div
+        class="flex justify-center md:justify-start mt-5"
+      >
+        <button
+          class="px-4 py-2 rounded-md font-bold text-sm bg-blue-500 text-white"
+        >
+          New Game
+        </button>
+      </div>
+    </div>
+    <div
+      class="flex-auto w-full md:w-2/8 md:order-2 md:mt-7 mt-4 flex-col text-center md:text-left"
+    >
+      <div
+        class="text-6xl"
+      >
+        _ _ _
+      </div>
+      <div
+        class="text-3xl mt-4"
+      >
+        <input
+          aria-label="Letter"
+          class="px-4 py-0 border mt-4 focus:outline-none text-sm rounded-md w-56 h-10"
+          placeholder="Type your guess"
+          type="text"
+          value=""
+        />
+        <button
+          class="px-2 py-2 rounded-md font-bold text-sm bg-blue-500 text-white mt-4"
+        >
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

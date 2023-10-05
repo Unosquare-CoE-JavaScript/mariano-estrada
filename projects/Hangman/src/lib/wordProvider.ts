@@ -15,8 +15,8 @@ const words = [
 ];
 
 export function makeWordProvider() {
-  if (import.meta.env.NODE_ENV === 'test') {
-    return () => 'string test';
+  if (process.env.NODE_ENV === 'test') {
+    return () => 'vue';
   } else {
     return () => {
       const newRandomIndex = Math.floor(Math.random() * words.length);
